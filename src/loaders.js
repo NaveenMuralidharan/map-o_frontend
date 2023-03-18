@@ -451,7 +451,7 @@ export const indexLoader = async () => {
 
 //showLoader => get process obj, create mermaid code, display
 export const showLoader = async ({params}) => {
-    console.log("param for showLoader is "+ params.id)
+    // console.log("param for showLoader is "+ params.id)
     const id = params.id;
 
 //hardcoaded diagram code    
@@ -648,7 +648,7 @@ const trialCode = {
 
 
 export const showLoader2 = async ({params}) => {
-    console.log("show loader 2 ")
+    // console.log("show loader 2 ")
     const response = await fetch(URL+"/process/" + params.id);
     const process = await response.json();
     
@@ -656,9 +656,9 @@ export const showLoader2 = async ({params}) => {
     const newmermaidCodeGen = (diagObj)=>{
 
         let text=""
-    
-        text = text +"\n"+ diagObj.type+"\n"
-    
+        const diagType="sequenceDiagram"
+        // text = text +"\n"+ diagObj.type+"\n"
+        text = text + "\n" + diagType + "\n"
         diagObj.stages.forEach((stage) => {
             text = text + "box " + stage.name+"\n"
             let lastindex = stage.steps.length - 1

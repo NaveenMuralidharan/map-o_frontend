@@ -14,7 +14,7 @@ const Index = (props) => {
         <h3>Critical Process Controller</h3>
         <br></br>
         <br></br>
-
+        {/* Map new process */}
         <div>
             <h4>Map a new Process:</h4>
             <Form action="/process/create" method="post">
@@ -31,6 +31,7 @@ const Index = (props) => {
                     <input type="text" name="processName"/>
                 </div>
                 <button type="submit"> Create Process </button>
+                
             </Form>
         </div>
 
