@@ -191,7 +191,8 @@ const Show3 = () => {
       };
 
     // TEST - CREATE NEW STAGE FUNC- INPUT OUTPUT 
-    const [formData, setFormData] = useState({ name: '', orgUnit: '', owner: '' });
+    const [formData, setFormData] = useState({ name: '', orgUnit: '', stageOwner: '', contactDetails: '', 
+            stepOwner: '', stepAction: '', pass_to: '', purpose: '', channel: '', tool: '' });
     
     const handleStageSubmit = async (event) =>{
         event.preventDefault(); 
@@ -207,16 +208,16 @@ const Show3 = () => {
                                                         name:       formData.name,
                                                         orgUnit:    formData.orgUnit,
                                                         stageOwner: formData.stageOwner,
-                                                        contactDetails: "john@gmail.com",
+                                                        contactDetails: formData.contactDetails,
                                                         steps:      [
                                                                         {
                                                                             order:          1.1,
-                                                                            action:         "fill form",
-                                                                            purpose:        "fun",
-                                                                            stepOwner:      formData.stageOwner,
-                                                                            tool:           "ms",
-                                                                            pass_to:        "Public"    
-
+                                                                            stepOwner:      formData.stepOwner,
+                                                                            action:         formData.stepAction,
+                                                                            pass_to:        formData.pass_to, 
+                                                                            purpose:        formData.purpose,
+                                                                            channel:        formData.channel,
+                                                                            tool:           formData.tool,
                                                                         }
                                                                     ]
                                                     })
@@ -328,15 +329,40 @@ const Show3 = () => {
                             <div>
                                 
                                 <Form onSubmit={handleStageSubmit}>
+
+                                    
                                     <label htmlFor="name">Name:</label>
                                     <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} />
 
                                     <label htmlFor="orgUnit">Org Unit:</label>
                                     <input type="text" id="orgUnit" name="orgUnit" value={formData.orgUnit} onChange={handleInputChange} />
 
-                                    <label htmlFor="stageOwner">Owner:</label>
+                                    <label htmlFor="stageOwner">Stage Owner:</label>
                                     <input type="text" id="stageOwner" name="stageOwner" value={formData.stageOwner} onChange={handleInputChange} />
 
+                                    <label htmlFor="name">Contact Details:</label>
+                                    <input type="text" id="contactDetails" name="contactDetails" value={formData.contactDetails} onChange={handleInputChange} />
+
+                                    <h5>Step 1</h5>
+
+                                    <label htmlFor="stepOwner">Step Owner:</label>
+                                    <input type="text" id="stepOwner" name="stepOwner" value={formData.stepOwner} onChange={handleInputChange} />
+
+                                    <label htmlFor="stepAction">Step Action:</label>
+                                    <input type="text" id="stepAction" name="stepAction" value={formData.stepAction} onChange={handleInputChange} />
+
+                                    <label htmlFor="pass_to">Passed to:</label>
+                                    <input type="text" id="pass_to" name="pass_to" value={formData.pass_to} onChange={handleInputChange} />
+
+                                    <label htmlFor="purpose">Purpose:</label>
+                                    <input type="text" id="purpose" name="purpose" value={formData.purpose} onChange={handleInputChange} />
+                                    
+                                    <label htmlFor="channel">Channel:</label>
+                                    <input type="text" id="channel" name="channel" value={formData.channel} onChange={handleInputChange} />
+                                    
+                                    <label htmlFor="tool">Tool:</label>
+                                    <input type="text" id="tool" name="tool" value={formData.tool} onChange={handleInputChange} />
+                                    
                                     <button type="submit">Submit</button>
                                     
                                     <button 
