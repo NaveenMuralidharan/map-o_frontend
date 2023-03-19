@@ -9,7 +9,7 @@ const Step = ({step}) => {
         <div>      
             
             <h5>{step.order} - {step.action}</h5>
-            <p>{step.stakeholder} - {step.tool}({step.channel})</p>
+            <p>{step.stepOwner} - {step.tool}({step.channel})</p>
            
         </div>
       );

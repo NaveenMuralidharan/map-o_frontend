@@ -683,14 +683,19 @@ export const showLoader2 = async ({params}) => {
         // console.log(text)
         return text
     }
+    
     //Generate mermaid code from process obj
-    const mermaidCode = newmermaidCodeGen(process)
-    console.log("---DEBUG mermaid code gen in in showloader2 is ",
-                mermaidCode)
+    // const mermaidCode = newmermaidCodeGen(process)
+    // console.log("---DEBUG mermaid code gen in in showloader2 is ",
+    //             mermaidCode)
+
+    //TRIAL - Get mermaid code from response obj
+    console.log("process obj in showloader 2 with mermaid code is ",process)
+
     //Create process obj "data" with process obj and mermaid code
     const data = {  
-                    process: process,
-                    mermaidCode: mermaidCode
+                    process: process
+                    // mermaidCode: mermaidCode
                 }
 
     console.log("DEBUG showloader 2 data output is ", data)

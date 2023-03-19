@@ -166,11 +166,15 @@ const Show3 = () => {
     
     // DESTRUCTURE PROCESS FROM SHOWLOADER
     const data = useLoaderData();
-    const { mermaidCode } = data;            
+    
+    // const { mermaidCode } = data;
+                
     const { process } = data;
+    console.log("process obj in show js is", process)
     const { stages } = process;
     const { steps } = stages;
-    
+    // TRIAL - get mermaid code from process obj
+    const { mermaidCode } = process;
     const [processData, setProcessData] = useState({
                                                     mermaidCode: mermaidCode, 
                                                     process: process, 
@@ -202,15 +206,16 @@ const Show3 = () => {
                                                         order:      newStageOrder,
                                                         name:       formData.name,
                                                         orgUnit:    formData.orgUnit,
-                                                        owner:      formData.owner,
+                                                        stageOwner: formData.stageOwner,
+                                                        contactDetails: "john@gmail.com",
                                                         steps:      [
                                                                         {
-                                                                            order:          "",
-                                                                            action:         "",
-                                                                            purpose:        "",
-                                                                            stakeholder:    "",
-                                                                            tool:           "",
-                                                                            pass_to:        ""    
+                                                                            order:          1.1,
+                                                                            action:         "fill form",
+                                                                            purpose:        "fun",
+                                                                            stepOwner:      formData.stageOwner,
+                                                                            tool:           "ms",
+                                                                            pass_to:        "Public"    
 
                                                                         }
                                                                     ]
@@ -231,6 +236,43 @@ const Show3 = () => {
           setProcessData({...processData, stages: retrievedStages})
         // handleStateUpdate(processData.stages, retrievedProcess.stages)                                                
             
+        //create new mermaid diagram and update mermaid code state                                            
+        const newmermaidCodeGen = (diagObj)=>{
+
+            let text=""
+            const diagType="sequenceDiagram"
+            // text = text +"\n"+ diagObj.type+"\n"
+            text = text + "\n" + diagType + "\n"
+            diagObj.stages.forEach((stage) => {
+                text = text + "box " + stage.name+"\n"
+                let lastindex = stage.steps.length - 1
+        
+                stage.steps.forEach((step,i)=>{
+                    text = text + "participant " + step.stakeholder+"\n"
+                    if(lastindex == i){ 
+                        text = text + "end" + "\n"
+                    }
+                })
+                
+                stage.steps.forEach((step)=>{
+                    text = text + "activate " + step.stakeholder + "\n"
+                    text = text + "Note over " + step.stakeholder +": " + step.stakeholder+ " - <br/>" +  step.action + "<br/>" + "Doc: " + step.docType+ "\n"
+                    // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
+                    // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
+                    text = text + step.stakeholder + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + "<br/> Tool: " + step.tool + "<br/>"+"\n"
+                    
+                })
+                
+            })
+            // console.log(text)
+            return text
+        }
+
+        console.log('state mermaidCode BEFORE update ', processData.mermaidCode)
+        const updatedMermaidCode = newmermaidCodeGen(retrievedProcess)
+        console.log({updatedMermaidCode})
+        setProcessData({...processData, mermaidCode: updatedMermaidCode})
+        console.log('state mermaidCode after update ', processData.mermaidCode)
             //create coy of stages, push new stage
             // setProcessData(processData.process, retrievedProcess)
         //clear form    
@@ -292,8 +334,8 @@ const Show3 = () => {
                                     <label htmlFor="orgUnit">Org Unit:</label>
                                     <input type="text" id="orgUnit" name="orgUnit" value={formData.orgUnit} onChange={handleInputChange} />
 
-                                    <label htmlFor="owner">Owner:</label>
-                                    <input type="text" id="owner" name="owner" value={formData.owner} onChange={handleInputChange} />
+                                    <label htmlFor="stageOwner">Owner:</label>
+                                    <input type="text" id="stageOwner" name="stageOwner" value={formData.stageOwner} onChange={handleInputChange} />
 
                                     <button type="submit">Submit</button>
                                     

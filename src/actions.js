@@ -28,21 +28,22 @@ export const createAction2 = async({request}) => {
     
     //Create new process obj
     const newProcess = {
-                        type: "sequenceDiagram",
+                        processName: formData.get("processName"),
                         orgUnit: formData.get("orgUnit"),
                         processOwner: formData.get("processOwner"),    
-                        processName: formData.get("processName"),
+                        type: "sequenceDiagram",
                         stages: [
                             //setup first stage to invite user to edit 
                                     {
-                                        name: "Processes are made of multiple stages. Name the First stage of your process. Each stage is comprised of multiple steps, model them in chronological order",
-                                        orgUnit: "Name the organization / vendor / client responsible for this stage of the process",
-                                        processOwner: "Name the stakeholder who owns this stage",
-                                        contactDetails: "Contact details of process owner", 
+                                        order: 1,
+                                        name: "Stage name",
+                                        orgUnit: "Organization / vendor / client responsible",
+                                        stageOwner: "Stakeholder owning this stage",
+                                        contactDetails: "Email: ", 
                                         steps: [
                                             {
                                                 order: 1.1,
-                                                stakeholder: "Each step can only involve one stakeholder performing it",
+                                                stepOwner: "Stakeholder owning this step",
                                                 action: "Describe what is done in this step",
                                                 purpose: "Describe why this step is performed, keeping in mind the value for the stakeholders",
                                                 pass_to: "Indicate the stakeholder in the next step",
@@ -56,8 +57,43 @@ export const createAction2 = async({request}) => {
                    
                                     }
                         ]
-                    }   
-    console.log("New process obj in createaction2 is ", newProcess)
+                    }
+    console.log("New process obj in createaction2 is ", newProcess)                
+    
+    //TRIAL-Create mermaid code from newprocess,
+    const newmermaidCodeGen = (diagObj)=>{
+
+        let text=""
+        const diagType="sequenceDiagram"
+        // text = text +"\n"+ diagObj.type+"\n"
+        text = text + "\n" + diagType + "\n"
+        diagObj.stages.forEach((stage) => {
+            text = text + "box " + stage.name+"\n"
+            let lastindex = stage.steps.length - 1
+    
+            stage.steps.forEach((step,i)=>{
+                text = text + "participant " + step.stepOwner+"\n"
+                if(lastindex == i){ 
+                    text = text + "end" + "\n"
+                }
+            })
+            
+            stage.steps.forEach((step)=>{
+                text = text + "activate " + step.stepOwner + "\n"
+                text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - <br/>" +  step.action + "<br/>" + "Doc: " + step.docType+ "\n"
+                // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
+                // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
+                text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + "<br/> Tool: " + step.tool + "<br/>"+"\n"
+                
+            })
+            
+        })
+        // console.log(text)
+        return text
+    }
+    const newMermaidCode = newmermaidCodeGen(newProcess)
+    newProcess.mermaidCode = newMermaidCode;                 
+    console.log("New process obj AFTER adding mermaidcode ", newProcess)  
 
     //DEBUG
     console.log("Striggified JSOn of process is ",JSON.stringify(newProcess))                
@@ -117,6 +153,41 @@ export const createStageAction = async({request, params}) => {
 }
 
 export const updateAction = async(process) =>{
+
+    //TRIAL - recreate mermaidcode inside process
+    const newmermaidCodeGen = (diagObj)=>{
+
+        let text=""
+        const diagType="sequenceDiagram"
+        // text = text +"\n"+ diagObj.type+"\n"
+        text = text + "\n" + diagType + "\n"
+        diagObj.stages.forEach((stage) => {
+            text = text + "box " + stage.name+"\n"
+            let lastindex = stage.steps.length - 1
+    
+            stage.steps.forEach((step,i)=>{
+                text = text + "participant " + step.stepOwner+"\n"
+                if(lastindex == i){ 
+                    text = text + "end" + "\n"
+                }
+            })
+            
+            stage.steps.forEach((step)=>{
+                text = text + "activate " + step.stepOwner + "\n"
+                text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - <br/>" +  step.action + "<br/>" + "Doc: " + step.docType+ "\n"
+                // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
+                // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
+                text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + "<br/> Tool: " + step.tool + "<br/>"+"\n"
+                
+            })
+            
+        })
+        // console.log(text)
+        return text
+    }
+    const updatedMermaidCode = newmermaidCodeGen(process)
+    process.mermaidCode = updatedMermaidCode;
+
 
     console.log("TEST - updateAction req is ", process)
 
