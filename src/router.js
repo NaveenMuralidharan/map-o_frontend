@@ -2,8 +2,10 @@ import {createBrowserRouter, createRoutesFromElements, Route} from "react-router
 import App from "./App";
 import Show3 from "./pages/Show";
 import Index from "./pages/Index";
+import Edit from "./pages/Edit";
 import { indexLoader, showLoader, showLoader2 } from "./loaders";
 import { createAction, createAction2, createStageAction } from "./actions";
+
 const router = createBrowserRouter(createRoutesFromElements(
     <>
         <Route path="/" element={<App/>}>
@@ -13,6 +15,7 @@ const router = createBrowserRouter(createRoutesFromElements(
             {/* <Route path="process/create" action={createAction}/> */}
             <Route path="process/create" action={createAction2}/>
             <Route path="process/stage/:id" action={createStageAction}/>
+            <Route path="process/:id/update" element={<Edit/>} loader={showLoader2}/>
         </Route>
     </>
 ))

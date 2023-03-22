@@ -17,7 +17,7 @@ const Stage = ({stage}) => {
     return (
         <div>      
             <h6>{stage.order} - {stage.name} </h6>
-            <h6>Owner: {stage.stageOwner}</h6>
+            <h6>By {stage.stageOwner}</h6>
             <br></br>   
             <a href="">Edit Stage</a>
             <br></br>

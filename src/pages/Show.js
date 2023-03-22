@@ -1,161 +1,12 @@
 import { Link, useLoaderData, Form } from "react-router-dom";
 import { showLoader } from "../loaders";
-import CreateStage from "./CreateStage"
+import CreateStage from "./Edit"
 import Mermaid from "../Mermaid";
 import Stage from "../components/Stage"
 import Step from "../components/Step"
 import React, { useState } from 'react'
 import { updateAction } from "../actions";
 
-//TRIAL
-const Show = () => {
-    //constructor
-    console.log("hi from show.js")
-    
-    const trialCode = useLoaderData();
-    console.log("trialcode  is ", trialCode)
-    const { process } = trialCode;
-
-    console.log("deconstructed process is ", process)
-    const { stages } = process;
-    const { steps } = stages;
-    
-    console.log("From Show component, mermaid code fro loader data is " + trialCode.mermaidCode);
-
-    return (
-        <div>
-            <h4>Organization: {trialCode.process.orgUnit}</h4>
-            
-            <div>
-                <Mermaid chart={trialCode.mermaidCode} />
-            </div>
-            
-
-            <div>
-                
-                <h4> Stages</h4>
-                
-                <div>
-                    <Form action={`/update/${process.id}`} method="post">
-                        Add Stages:
-                        
-                            <label>Stage Name:</label>
-                            <input type="text" name="name" placeholder="Stage name"/>
-                            <label>Org Unit:</label>
-                            <input type="text" name="orgUnit" placeholder="Org Unit"/>
-                            <label>Owner:</label>
-                            <input type="text" name="processOwner" placeholder="Process Owner"/>
-                            <button type="submit">Create New Stage</button>
-                    </Form>
-                </div>    
-                
-                <div>
-                    
-                    {stages
-                        .map((stage) => 
-                            <Stage stage={stage} key={stage.id} /> 
-                            )
-                    }
-                </div>
-                <div>    
-                    {stages.forEach((stage)=>{
-                            console.log("Stage is "+ stage.name);
-                        return stage.steps.map((step) => {
-                            console.log("Step is "+ step.order);
-                            return <Step step={step} key={step.id} />
-                            console.log(Step)
-                        }
- 
-                        )
-                    })
-
-                    }
-                </div>
-                
-            </div>
-        </div>
-
- 
-    )
-
-}
-
-
-//TRIAL 2
-const Show2 = () => {
-    //constructor
-    console.log("hi from show.js")
-    
-    const data = useLoaderData();
-    // console.log("Data from showloader2 inside show.js  is ", 
-    //             data)
-
-    const { mermaidCode } = data;            
-    const { process } = data;
-
-    // console.log("deconstructed process is ", process)
-    const { stages } = process;
-    const { steps } = stages;
-    
-    console.log("From Show component, mermaid code fro loader data is " + mermaidCode);
-
-    return (
-        <div>
-            <h4>Organization: {process.orgUnit}</h4>
-            
-            <div>
-                <Mermaid chart={mermaidCode} />
-            </div>
-            
-
-            <div>
-                
-                <h4> Stages of {process.processName}</h4>
-                
-                <div>
-                    <Form action={`/update/${process.id}`} method="post">
-                        Add Stages:
-                        
-                            <label>Stage Name:</label>
-                            <input type="text" name="name" placeholder="Stage name"/>
-                            <label>Org Unit:</label>
-                            <input type="text" name="orgUnit" placeholder="Org Unit"/>
-                            <label>Owner:</label>
-                            <input type="text" name="processOwner" placeholder="Process Owner"/>
-                            <button type="submit">Create  Stage</button>
-                    </Form>
-                </div>    
-                <h3>Stages of {process.processName}</h3>
-                <div>
-                    
-                    {stages
-                        .map((stage) => 
-                            <Stage stage={stage} key={stage.id} /> 
-                            )
-                    }
-                </div>
-                <div>    
-                    {stages.forEach((stage)=>{
-                            console.log("Stage is "+ stage.name);
-                        return stage.steps.map((step) => {
-                            console.log("Step is "+ step.order);
-                            return <Step step={step} key={step.id} />
-                            console.log(Step)
-                        }
- 
-                        )
-                    })
-
-                    }
-                </div>
-                
-            </div>
-        </div>
-
- 
-    )
-
-}
 
 //TRIAL 3
 
@@ -190,10 +41,13 @@ const Show3 = () => {
         setStageToggle(!stageToggle);
       };
 
-    // TEST - CREATE NEW STAGE FUNC- INPUT OUTPUT 
+    // NEW STAGE FUNC state variables 
     const [formData, setFormData] = useState({ name: '', orgUnit: '', stageOwner: '', contactDetails: '', 
             stepOwner: '', stepAction: '', pass_to: '', purpose: '', channel: '', tool: '' });
-    
+    //EDIT stage related state variables
+    const [editFormData, setEditFormData] = useState({editingStageId: '', name: ''})
+
+
     const handleStageSubmit = async (event) =>{
         event.preventDefault(); 
         console.log("form data is ",formData);
@@ -281,6 +135,44 @@ const Show3 = () => {
         //close add form
 
     }
+
+
+    
+    //EDIT FORM TRIAL
+    const [editStageToggle, setEditStageToggle] = useState(false);
+    const handleEditStageClick = (event) =>{
+        console.log(event.target.value)
+        // setEditFormData({...editFormData, editingStageId: stageId})
+        // console.log("stage currently editig is ", editFormData.stageId)
+        setEditStageToggle(!editStageToggle)
+    }
+
+    const trackEditingStage = (stageId)=>{
+        console.log("TEST - stage being edited is ", trackEditingStage)    
+    }
+
+    const handleEditStageSubmit = (event)=>{
+        event.preventDefault(); 
+        console.log("Edit form data is ",editFormData);
+
+
+        //build new stage object
+        const updatedStage= {
+            order:      editFormData.order,
+            name:       editFormData.name,
+            orgUnit:    editFormData.orgUnit,
+            stageOwner: editFormData.stageOwner,
+            contactDetails: editFormData.contactDetails,
+
+        }
+        
+    }
+
+    const handleEditInputChange = (event) =>{
+        const {name, value} = event.target;
+        setEditFormData((prevState) =>({...prevState, [name]: value}))
+    }
+
 
     const handleStateUpdate = (state, newState) =>{
         const oldState = [...state]
@@ -385,7 +277,31 @@ const Show3 = () => {
                     
                     {processData.stages
                         .map((stage) => 
+                            
+                            <div>
+
                             <Stage stage={stage} key={stage._id} /> 
+                            
+                            { !editStageToggle ? <div>
+                                <button value={stage._id} onClick={handleEditStageClick}>
+                                    Edit Stage
+                                </button>
+                                
+                                <a href={`/process/${processData.process._id}/update`}>Trial Edit </a>
+                                </div>: <></>
+                            }
+                            { editStageToggle ? <div>
+                                <Form onSubmit={handleEditStageSubmit}>
+                                    <label htmlFor="name">Edit Name:</label>
+                                    <p>Current value: {stage.name}</p>
+                                    <input type="text" id="name" name="name" defaultValue={stage.name} value={editFormData.name} onChange={handleEditInputChange} />
+                                    <button type="submit">Save</button>
+
+                                </Form>
+                                 </div>
+                                 : <></>}
+                            
+                            </div>
                             )
                     }
                 </div>
