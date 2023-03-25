@@ -1,12 +1,15 @@
 import {Link, useLoaderData, Form} from "react-router-dom";
 import React, { useState } from "react";
+import { deleteAction } from "../actions";
 
 const Index = (props) => {
     const processes = useLoaderData()
     console.log("from index js process is ", processes)
 
     const [show, setShow] = useState()
-
+    const handleDelete=(id)=>{
+        console.log("handle delete process func")
+    }
     return <>
     <div>
         <br></br>
@@ -39,9 +42,15 @@ const Index = (props) => {
 
             {processes.map((process)=>{
                return <div key={process._id}>
+
                     <Link to={`/process/${process._id}`}>
                         <h4>{process.processName}</h4> 
                    </Link>
+                    
+                   <Form action={`/process/${process._id}/delete`} method="post">
+                    <button>Delete Decision</button>
+                    </Form>
+
                 </div>
                 
             })}

@@ -210,6 +210,16 @@ export const updateAction = async(process) =>{
 
 }
 
+export const deleteAction = async({params})=>{
+    console.log("delete action func", params.id)
+    const id = params.id;
+    await fetch(URL+`/process/${id}/`, {
+        method: "delete"
+
+    })
+    return redirect("/process")
+
+}
 
 //create a seeddata file, save processes arr there, 
 //import into loader and action JS

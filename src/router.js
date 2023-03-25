@@ -4,7 +4,7 @@ import Show3 from "./pages/Show";
 import Index from "./pages/Index";
 import Edit from "./pages/Edit";
 import { indexLoader, showLoader, showLoader2 } from "./loaders";
-import { createAction, createAction2, createStageAction } from "./actions";
+import { createAction, createAction2, createStageAction, deleteAction } from "./actions";
 
 const router = createBrowserRouter(createRoutesFromElements(
     <>
@@ -16,6 +16,7 @@ const router = createBrowserRouter(createRoutesFromElements(
             <Route path="process/create" action={createAction2}/>
             <Route path="process/stage/:id" action={createStageAction}/>
             <Route path="process/:id/update" element={<Edit/>} loader={showLoader2}/>
+            <Route path="process/:id/delete" action={deleteAction} />
         </Route>
     </>
 ))
