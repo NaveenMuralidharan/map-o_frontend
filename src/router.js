@@ -5,8 +5,8 @@ import Index from "./pages/Index";
 import Edit from "./pages/Edit";
 // import Map from "./pages/Map";
 
-import { indexLoader, showLoader, showLoader2 } from "./loaders";
-import { createAction, createAction2, createStageAction, deleteAction } from "./actions";
+import { indexLoader, showLoader2 } from "./loaders";
+import { createAction2, createStageAction, deleteAction } from "./actions";
 
 const router = createBrowserRouter(createRoutesFromElements(
     <>

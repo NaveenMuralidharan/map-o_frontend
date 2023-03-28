@@ -1,5 +1,4 @@
 
-import { Link } from "react-router-dom";
 import Step from "../components/Step"
 import React, { useState } from 'react'
 
@@ -18,12 +17,7 @@ const Stage = ({stage}) => {
         <div>      
             <h6>{stage.order} - {stage.name} </h6>
             <h6>By {stage.stageOwner}</h6>
-            {/* <br></br>   
-            <a href="">Edit Stage</a>
-            <br></br>
-            <a href="">Delete Stage</a>
-            <br></br>  */}
-            {/* <a href="">View Steps</a><br></br> */}
+
           
 
           {!stepToggle ? 
@@ -53,8 +47,7 @@ const Stage = ({stage}) => {
           }
             
 
-            {/* <Step step={steps[0]} /> */}
-            
+           
 
          
           

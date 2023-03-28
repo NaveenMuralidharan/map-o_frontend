@@ -1,15 +1,16 @@
 import {Link, useLoaderData, Form} from "react-router-dom";
 import React, { useState } from "react";
-import { deleteAction } from "../actions";
+// import { deleteAction } from "../actions";
 
 const Index = (props) => {
     const processes = useLoaderData()
     console.log("from index js process is ", processes)
 
-    const [show, setShow] = useState()
-    const handleDelete=(id)=>{
-        console.log("handle delete process func")
-    }
+    // const [show, setShow] = useState()
+    // const handleDelete=(id)=>{
+    //     console.log("handle delete process func")
+    // }
+
     return <>
     <div>
         <br></br>

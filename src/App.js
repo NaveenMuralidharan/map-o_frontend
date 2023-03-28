@@ -1,7 +1,6 @@
-import logo from './logo.svg';
+
 import './App.css';
-import Mermaid from "./Mermaid";
-import example from "./example";
+
 import {Outlet} from "react-router-dom"
 
 function App() {

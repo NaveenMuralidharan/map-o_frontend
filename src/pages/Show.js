@@ -1,6 +1,6 @@
-import { Link, useLoaderData, Form } from "react-router-dom";
-import { showLoader } from "../loaders";
-import CreateStage from "./Edit"
+import { useLoaderData, Form } from "react-router-dom";
+// import { showLoader } from "../loaders";
+// import CreateStage from "./Edit"
 import Mermaid from "../Mermaid";
 
 import Stage from "../components/Stage"
@@ -140,16 +140,16 @@ const Show3 = () => {
     
     //EDIT FORM TRIAL
     const [editStageToggle, setEditStageToggle] = useState(false);
-    const handleEditStageClick = (event) =>{
-        console.log(event.target.value)
-        // setEditFormData({...editFormData, editingStageId: stageId})
-        // console.log("stage currently editig is ", editFormData.stageId)
-        setEditStageToggle(!editStageToggle)
-    }
+    // const handleEditStageClick = (event) =>{
+    //     console.log(event.target.value)
+    //     // setEditFormData({...editFormData, editingStageId: stageId})
+    //     // console.log("stage currently editig is ", editFormData.stageId)
+    //     setEditStageToggle(!editStageToggle)
+    // }
 
-    const trackEditingStage = (stageId)=>{
-        console.log("TEST - stage being edited is ", trackEditingStage)    
-    }
+    // const trackEditingStage = (stageId)=>{
+    //     console.log("TEST - stage being edited is ", trackEditingStage)    
+    // }
 
     const handleEditStageSubmit = (event)=>{
         event.preventDefault(); 
@@ -157,14 +157,14 @@ const Show3 = () => {
 
 
         //build new stage object
-        const updatedStage= {
-            order:      editFormData.order,
-            name:       editFormData.name,
-            orgUnit:    editFormData.orgUnit,
-            stageOwner: editFormData.stageOwner,
-            contactDetails: editFormData.contactDetails,
+        // const updatedStage= {
+        //     order:      editFormData.order,
+        //     name:       editFormData.name,
+        //     orgUnit:    editFormData.orgUnit,
+        //     stageOwner: editFormData.stageOwner,
+        //     contactDetails: editFormData.contactDetails,
 
-        }
+        // }
         
     }
 
@@ -174,14 +174,11 @@ const Show3 = () => {
     }
 
 
-    const handleStateUpdate = (state, newState) =>{
-        const oldState = [...state]
-        console.log({oldState, newState})
+    // const handleStateUpdate = (state, newState) =>{
+    //     const oldState = [...state]
+    //     console.log({oldState, newState})
 
-
-        // set process state
-
-    }
+    // }
 
 
     const handleInputChange = (event) =>{

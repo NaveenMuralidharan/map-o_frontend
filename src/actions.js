@@ -1,25 +1,25 @@
 import { redirect } from "react-router-dom"
-import processes from "./data"
+
 // const URL = "http://localhost:4000"
 const URL="https://process-mapper.onrender.com"
 
 
-export const createAction = async ({request}) => {
-    // get form data
-    const formData = await request.formData()
-    console.log("Create action from data is "+formData)
-    // construct request body
-    const newProcess = {
+// export const createAction = async ({request}) => {
+//     // get form data
+//     const formData = await request.formData()
+//     console.log("Create action from data is "+formData)
+//     // construct request body
+//     const newProcess = {
         
-        orgUnit: formData.get("orgUnit"),
-        processName: formData.get("processName"),
-        processOwner: formData.get("processOwner")
-    }
+//         orgUnit: formData.get("orgUnit"),
+//         processName: formData.get("processName"),
+//         processOwner: formData.get("processOwner")
+//     }
     
-    console.log("new process is "+ newProcess.orgUnit)
-    // redirect back to index page
-    return redirect("/")
-}
+//     console.log("new process is "+ newProcess.orgUnit)
+//     // redirect back to index page
+//     return redirect("/")
+// }
 
 export const createAction2 = async({request}) => {
 
@@ -63,36 +63,36 @@ export const createAction2 = async({request}) => {
     console.log("New process obj in createaction2 is ", newProcess)                
     
     //Create mermaid code from newprocess,
-    const newmermaidCodeGen = (diagObj)=>{
+    // const newmermaidCodeGen = (diagObj)=>{
 
-        let text=""
-        const diagType="sequenceDiagram"
-        // text = text +"\n"+ diagObj.type+"\n"
-        text = text + "\n" + diagType + "\n"
-        diagObj.stages.forEach((stage) => {
-            text = text + "box " + stage.name+"\n"
-            let lastindex = stage.steps.length - 1
+    //     let text=""
+    //     const diagType="sequenceDiagram"
+    //     // text = text +"\n"+ diagObj.type+"\n"
+    //     text = text + "\n" + diagType + "\n"
+    //     diagObj.stages.forEach((stage) => {
+    //         text = text + "box " + stage.name+"\n"
+    //         let lastindex = stage.steps.length - 1
     
-            stage.steps.forEach((step,i)=>{
-                text = text + "participant " + step.stepOwner+"\n"
-                if(lastindex == i){ 
-                    text = text + "end" + "\n"
-                }
-            })
+    //         stage.steps.forEach((step,i)=>{
+    //             text = text + "participant " + step.stepOwner+"\n"
+    //             if(lastindex == i){ 
+    //                 text = text + "end" + "\n"
+    //             }
+    //         })
             
-            stage.steps.forEach((step)=>{
-                text = text + "activate " + step.stepOwner + "\n"
-                text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - <br/>" +  step.action + "<br/>" + "Doc: " + step.docType+ "\n"
-                // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
-                // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
-                text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + "<br/> Tool: " + step.tool + "<br/>"+"\n"
+    //         stage.steps.forEach((step)=>{
+    //             text = text + "activate " + step.stepOwner + "\n"
+    //             text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - <br/>" +  step.action + "<br/>" + "Doc: " + step.docType+ "\n"
+    //             // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
+    //             // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
+    //             text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + "<br/> Tool: " + step.tool + "<br/>"+"\n"
                 
-            })
+    //         })
             
-        })
-        // console.log(text)
-        return text
-    }
+    //     })
+    //     // console.log(text)
+    //     return text
+    // }
 
     //TRIAL-mermaid code gen without br's
     const trialmermaidCodeGen = (diagObj)=>{

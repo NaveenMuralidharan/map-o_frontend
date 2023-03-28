@@ -615,7 +615,7 @@ const newmermaidCodeGen = (diagObj)=>{
 
         stage.steps.forEach((step,i)=>{
             text = text + "participant " + step.stakeholder+"\n"
-            if(lastindex == i){ 
+            if(lastindex === i){ 
                 text = text + "end" + "\n"
             }
         })

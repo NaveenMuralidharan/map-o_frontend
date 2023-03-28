@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {Link, useLoaderData, Form} from "react-router-dom";
+import { useLoaderData, Form} from "react-router-dom";
 import { updateAction } from "../actions";
 
 const Edit = (params)=> {
@@ -17,17 +17,17 @@ const Edit = (params)=> {
     const { process } = data;
     console.log("process obj in show js is", process)
     const { stages } = process;
-    const { steps } = stages;
+    // const { steps } = stages;
     // TRIAL - get mermaid code from process obj
-    const { mermaidCode } = process;
+    // const { mermaidCode } = process;
 
     //STATE for process meta data
     const [formData, setFormData] = useState(process)
     
     //STATE for stages array data
-    const [stageFormData, setStageFormData] = useState(stages)
+    // const [stageFormData, setStageFormData] = useState(stages)
 
-    const [toggleStageEdit, setToggleStageEdit] = useState(false)
+    // const [toggleStageEdit, setToggleStageEdit] = useState(false)
     
   
     // console.log(stageFormData)
@@ -53,42 +53,42 @@ const Edit = (params)=> {
         updateAction(updatedProcess)
     }
  
-    const handleStageSubmit = (event, stageIndex)=>{
-        event.preventDefault()
+    // const handleStageSubmit = (event, stageIndex)=>{
+    //     event.preventDefault()
 
-        const formDataCopy = JSON.parse(JSON.stringify(formData))
-        formDataCopy.stages[stageIndex].name = event.target.value;
-        console.log(formDataCopy, formData)    
+    //     const formDataCopy = JSON.parse(JSON.stringify(formData))
+    //     formDataCopy.stages[stageIndex].name = event.target.value;
+    //     console.log(formDataCopy, formData)    
         
-        setFormData(formDataCopy)
-    }
+    //     setFormData(formDataCopy)
+    // }
     
-    //handle change to stage in process
-    const handleStageChange = (stageIndex, event)=>{
-        //get updated stage values and key from event target
-        const {name, value} = event.target
+    // //handle change to stage in process
+    // const handleStageChange = (stageIndex, event)=>{
+    //     //get updated stage values and key from event target
+    //     const {name, value} = event.target
         
-        //save the current stage's data and update it with new key value
-        const updatedStages = {...formData.stages}
-        updatedStages[stageIndex] = {...updatedStages[stageIndex], [name]: value};
+    //     //save the current stage's data and update it with new key value
+    //     const updatedStages = {...formData.stages}
+    //     updatedStages[stageIndex] = {...updatedStages[stageIndex], [name]: value};
 
-        //set form data with new stage
-        setFormData({...formData, stages: updatedStages})
-        console.log("STAGES EDIT - set form data is ", formData)
-    }
+    //     //set form data with new stage
+    //     setFormData({...formData, stages: updatedStages})
+    //     console.log("STAGES EDIT - set form data is ", formData)
+    // }
 
-    const handleStepChange = (stepIndex, stageIndex, event)=>{
-        //get name and value from event target
-        const{name, value} = event.target;
+    // const handleStepChange = (stepIndex, stageIndex, event)=>{
+    //     //get name and value from event target
+    //     const{name, value} = event.target;
 
-        //copy steps array from current state and modify the specific step
-        const updatedSteps = {...formData.stages[stageIndex].steps}
-        updatedSteps[stepIndex] = {...updatedSteps[stepIndex], [name]: value}
+    //     //copy steps array from current state and modify the specific step
+    //     const updatedSteps = {...formData.stages[stageIndex].steps}
+    //     updatedSteps[stepIndex] = {...updatedSteps[stepIndex], [name]: value}
 
-        //set form data with new step
-        setFormData({...process.stages[stageIndex].steps, updatedSteps})
+    //     //set form data with new step
+    //     setFormData({...process.stages[stageIndex].steps, updatedSteps})
 
-    }
+    // }
 
 
     console.log(formData)
