@@ -18,11 +18,11 @@ const Stage = ({stage}) => {
         <div>      
             <h6>{stage.order} - {stage.name} </h6>
             <h6>By {stage.stageOwner}</h6>
-            <br></br>   
+            {/* <br></br>   
             <a href="">Edit Stage</a>
             <br></br>
             <a href="">Delete Stage</a>
-            <br></br> 
+            <br></br>  */}
             {/* <a href="">View Steps</a><br></br> */}
           
 
@@ -31,10 +31,11 @@ const Stage = ({stage}) => {
                         onClick={handleViewStepsClick}>
                         View Steps
                       </button>
+                      
                       : <></>
           }
 
-          
+          <hr></hr>
           {stepToggle ? 
                         <div>
                             <button onClick={handleViewStepsClick}>

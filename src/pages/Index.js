@@ -14,7 +14,7 @@ const Index = (props) => {
     <div>
         <br></br>
         <br></br>
-        <h3>Critical Process Controller</h3>
+        <h4>Process Mapper</h4>
         <br></br>
         <br></br>
         {/* Map new process */}
@@ -48,7 +48,7 @@ const Index = (props) => {
                    </Link>
                     
                    <Form action={`/process/${process._id}/delete`} method="post">
-                    <button>Delete Decision</button>
+                    <button>Delete Process</button>
                     </Form>
 
                 </div>

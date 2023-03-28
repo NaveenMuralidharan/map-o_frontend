@@ -2,6 +2,7 @@ import { Link, useLoaderData, Form } from "react-router-dom";
 import { showLoader } from "../loaders";
 import CreateStage from "./Edit"
 import Mermaid from "../Mermaid";
+
 import Stage from "../components/Stage"
 import Step from "../components/Step"
 import React, { useState } from 'react'
@@ -12,7 +13,6 @@ import { updateAction } from "../actions";
 
 const Show3 = () => {
     //constructor
-
     console.log("hi from show3.js")
     
     // DESTRUCTURE PROCESS FROM SHOWLOADER
@@ -32,7 +32,7 @@ const Show3 = () => {
                                                     stages: stages, 
                                                     steps: steps 
                                                 })
-
+    console.log("recently set mermaidcode is, ", processData.mermaidCode)
                                             
 
     //Toggle Add stage form visibility
@@ -54,7 +54,7 @@ const Show3 = () => {
 
         //Create a shallow copy of process update process object with new stage
         const updatedProcess = {...process}
-        const newStageOrder = updatedProcess.stages.length; 
+        const newStageOrder = updatedProcess.stages.length + 1; 
         console.log("updated process before stage pus is ", updatedProcess)
 
         updatedProcess.stages.push({
@@ -195,16 +195,28 @@ const Show3 = () => {
 
     return (
         <div>
-            <h4>Organization: {processData.process.orgUnit}</h4>
-            
+            <br></br>
+
+            <p>{processData.process.processName}</p>
+            <p>Organization: {processData.process.orgUnit}</p>    
+            <p>Process Owner: {processData.process.processOwner}</p>
+            <hr></hr>    
+
             <div>
+                {/* {processData.mermaidCode} */}
+
+                {/* DISPLAY MERMAID CHART */}
                 <Mermaid chart={processData.mermaidCode} />
             </div>
             
 
+                <hr></hr>
+
             <div>
                 
-                <h4> Stages of {processData.process.processName}</h4>
+                <h5> Stages of {processData.process.processName}</h5>
+                
+                <a href={`/process/${processData.process._id}/update`}>Edit Process</a>
                 
                 {!stageToggle? <div>
                     <button 
@@ -215,7 +227,7 @@ const Show3 = () => {
                 </div> 
                 :
                 <></>}
-                
+                <hr></hr>
                 
                 {stageToggle ? 
                             <div>
@@ -283,11 +295,11 @@ const Show3 = () => {
                             <Stage stage={stage} key={stage._id} /> 
                             
                             { !editStageToggle ? <div>
-                                <button value={stage._id} onClick={handleEditStageClick}>
+                                {/* <button value={stage._id} onClick={handleEditStageClick}>
                                     Edit Stage
-                                </button>
+                                </button> */}
                                 
-                                <a href={`/process/${processData.process._id}/update`}>Trial Edit </a>
+                                {/* <a href={`/process/${processData.process._id}/update`}>Edit </a> */}
                                 </div>: <></>
                             }
                             { editStageToggle ? <div>

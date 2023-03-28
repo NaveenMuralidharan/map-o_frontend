@@ -1,6 +1,8 @@
 import { redirect } from "react-router-dom"
 import processes from "./data"
-const URL = "http://localhost:4000"
+// const URL = "http://localhost:4000"
+const URL="https://process-mapper.onrender.com"
+
 
 export const createAction = async ({request}) => {
     // get form data
@@ -60,7 +62,7 @@ export const createAction2 = async({request}) => {
                     }
     console.log("New process obj in createaction2 is ", newProcess)                
     
-    //TRIAL-Create mermaid code from newprocess,
+    //Create mermaid code from newprocess,
     const newmermaidCodeGen = (diagObj)=>{
 
         let text=""
@@ -91,7 +93,44 @@ export const createAction2 = async({request}) => {
         // console.log(text)
         return text
     }
-    const newMermaidCode = newmermaidCodeGen(newProcess)
+
+    //TRIAL-mermaid code gen without br's
+    const trialmermaidCodeGen = (diagObj)=>{
+
+        let text=""
+        const diagType="sequenceDiagram"
+        // text = text +"\n"+ diagObj.type+"\n"
+        text = text + "\n" + diagType + "\n"
+        diagObj.stages.forEach((stage) => {
+            text = text + "box " + stage.name+"\n"
+            let lastindex = stage.steps.length - 1
+    
+            stage.steps.forEach((step,i)=>{
+                text = text + "participant " + step.stepOwner+"\n"
+                if(lastindex == i){ 
+                    text = text + "end" + "\n"
+                }
+            })
+            
+            stage.steps.forEach((step)=>{
+                text = text + "activate " + step.stepOwner + "\n"
+                text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - " +  step.action + "" + "Doc: " + step.docType+ "\n"
+                // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
+                // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
+                text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + " Tool: " + step.tool + ""+"\n"
+                
+            })
+            
+        })
+        // console.log(text)
+        return text
+    }
+
+    //GENERATE MERMAID CODE
+    // const newMermaidCode = newmermaidCodeGen(newProcess)
+
+    const newMermaidCode = trialmermaidCodeGen(newProcess)
+
     newProcess.mermaidCode = newMermaidCode;                 
     console.log("New process obj AFTER adding mermaidcode ", newProcess)  
 
@@ -113,7 +152,7 @@ export const createAction2 = async({request}) => {
     return redirect("/process");
 }
 
-export const createStageAction = async({request, params}) => {
+    export const createStageAction = async({request, params}) => {
 
     console.log("DEBUG updateAction request ",request )
     //get Form data from request 
@@ -150,42 +189,77 @@ export const createStageAction = async({request, params}) => {
         
     //Redirect to show page
     return redirect(`/process`);
-}
+    }
 
-export const updateAction = async(process) =>{
+    export const updateAction = async(process) =>{
 
     //TRIAL - recreate mermaidcode inside process
-    const newmermaidCodeGen = (diagObj)=>{
+    // const newmermaidCodeGen = (diagObj)=>{
 
-        let text=""
-        const diagType="sequenceDiagram"
-        // text = text +"\n"+ diagObj.type+"\n"
-        text = text + "\n" + diagType + "\n"
-        diagObj.stages.forEach((stage) => {
-            text = text + "box " + stage.name+"\n"
-            let lastindex = stage.steps.length - 1
+    //     let text=""
+    //     const diagType="sequenceDiagram"
+    //     // text = text +"\n"+ diagObj.type+"\n"
+    //     text = text + "\n" + diagType + "\n"
+    //     diagObj.stages.forEach((stage) => {
+    //         text = text + "box " + stage.name+"\n"
+    //         let lastindex = stage.steps.length - 1
     
-            stage.steps.forEach((step,i)=>{
-                text = text + "participant " + step.stepOwner+"\n"
-                if(lastindex == i){ 
-                    text = text + "end" + "\n"
-                }
-            })
+    //         stage.steps.forEach((step,i)=>{
+    //             text = text + "participant " + step.stepOwner+"\n"
+    //             if(lastindex == i){ 
+    //                 text = text + "end" + "\n"
+    //             }
+    //         })
             
-            stage.steps.forEach((step)=>{
-                text = text + "activate " + step.stepOwner + "\n"
-                text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - <br/>" +  step.action + "<br/>" + "Doc: " + step.docType+ "\n"
-                // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
-                // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
-                text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + "<br/> Tool: " + step.tool + "<br/>"+"\n"
+    //         stage.steps.forEach((step)=>{
+    //             text = text + "activate " + step.stepOwner + "\n"
+    //             text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - <br/>" +  step.action + "<br/>" + "Doc: " + step.docType+ "\n"
+    //             // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
+    //             // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
+    //             text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + "<br/> Tool: " + step.tool + "<br/>"+"\n"
+                
+    //         })
+            
+    //     })
+    //     // console.log(text)
+    //     return text
+    // }
+
+    //TRIAL-mermaid code gen without br's
+    const trialmermaidCodeGen = (diagObj)=>{
+
+            let text=""
+            const diagType="sequenceDiagram"
+            // text = text +"\n"+ diagObj.type+"\n"
+            text = text + "\n" + diagType + "\n"
+            diagObj.stages.forEach((stage) => {
+                text = text + "box " + stage.name+"\n"
+                let lastindex = stage.steps.length - 1
+        
+                stage.steps.forEach((step,i)=>{
+                    text = text + "participant " + step.stepOwner+"\n"
+                    if(lastindex == i){ 
+                        text = text + "end" + "\n"
+                    }
+                })
+                
+                stage.steps.forEach((step)=>{
+                    text = text + "activate " + step.stepOwner + "\n"
+                    text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - " +  step.action + "" + "Doc: " + step.docType+ "\n"
+                    // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
+                    // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
+                    text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + " Tool: " + step.tool + ""+"\n"
+                    
+                })
                 
             })
-            
-        })
-        // console.log(text)
-        return text
-    }
-    const updatedMermaidCode = newmermaidCodeGen(process)
+            // console.log(text)
+            return text
+        }
+
+     //GENERATE MERMAID CODE
+    // const updatedMermaidCode = newmermaidCodeGen(process)
+    const updatedMermaidCode = trialmermaidCodeGen(process)
     process.mermaidCode = updatedMermaidCode;
 
 

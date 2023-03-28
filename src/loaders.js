@@ -1,5 +1,6 @@
 import processes from "./data"
-const URL = "http://localhost:4000"
+// const URL = "http://localhost:4000"
+const URL="https://process-mapper.onrender.com"
 
 // const processes = [
 //     {
@@ -653,54 +654,16 @@ export const showLoader2 = async ({params}) => {
     const response = await fetch(URL+"/process/" + params.id);
     const process = await response.json();
     
-    //Func to generate mermaid code from a process obj
-    // const newmermaidCodeGen = (diagObj)=>{
-
-    //     let text=""
-    //     const diagType="sequenceDiagram"
-    //     // text = text +"\n"+ diagObj.type+"\n"
-    //     text = text + "\n" + diagType + "\n"
-    //     diagObj.stages.forEach((stage) => {
-    //         text = text + "box " + stage.name+"\n"
-    //         let lastindex = stage.steps.length - 1
-    
-    //         stage.steps.forEach((step,i)=>{
-    //             text = text + "participant " + step.stakeholder+"\n"
-    //             if(lastindex == i){ 
-    //                 text = text + "end" + "\n"
-    //             }
-    //         })
-            
-    //         stage.steps.forEach((step)=>{
-    //             text = text + "activate " + step.stakeholder + "\n"
-    //             text = text + "Note over " + step.stakeholder +": " + step.stakeholder+ " - <br/>" +  step.action + "<br/>" + "Doc: " + step.docType+ "\n"
-    //             // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
-    //             // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
-    //             text = text + step.stakeholder + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + "<br/> Tool: " + step.tool + "<br/>"+"\n"
-                
-    //         })
-            
-    //     })
-    //     // console.log(text)
-    //     return text
-    // }
-    
-    //Generate mermaid code from process obj
-    // const mermaidCode = newmermaidCodeGen(process)
-    // console.log("---DEBUG mermaid code gen in in showloader2 is ",
-    //             mermaidCode)
-
     //TRIAL - Get mermaid code from response obj
     console.log("process obj in showloader 2 with mermaid code is ",process)
 
     //Create process obj "data" with process obj and mermaid code
     const data = {  
                     process: process
-                    // mermaidCode: mermaidCode
                 }
 
     console.log("DEBUG showloader 2 data output is ", data)
 
-    return data
+    return data 
 
 }

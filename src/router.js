@@ -3,6 +3,8 @@ import App from "./App";
 import Show3 from "./pages/Show";
 import Index from "./pages/Index";
 import Edit from "./pages/Edit";
+// import Map from "./pages/Map";
+
 import { indexLoader, showLoader, showLoader2 } from "./loaders";
 import { createAction, createAction2, createStageAction, deleteAction } from "./actions";
 
@@ -12,7 +14,9 @@ const router = createBrowserRouter(createRoutesFromElements(
             <Route path="process" element={<Index/>} loader={indexLoader} />
             {/* <Route path="process/:id" element={<Show/>} loader={showLoader}/> */}
             <Route path="process/:id" element={<Show3/>} loader={showLoader2}/>
-            {/* <Route path="process/create" action={createAction}/> */}
+            {/* <Route path="process/:id/map" element={<Map/>} loader={showLoader2}/> */}
+  
+
             <Route path="process/create" action={createAction2}/>
             <Route path="process/stage/:id" action={createStageAction}/>
             <Route path="process/:id/update" element={<Edit/>} loader={showLoader2}/>
