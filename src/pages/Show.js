@@ -104,7 +104,7 @@ const Show3 = () => {
         
                 stage.steps.forEach((step,i)=>{
                     text = text + "participant " + step.stakeholder+"\n"
-                    if(lastindex == i){ 
+                    if(lastindex === i){ 
                         text = text + "end" + "\n"
                     }
                 })
@@ -139,7 +139,7 @@ const Show3 = () => {
 
     
     //EDIT FORM TRIAL
-    const [editStageToggle, setEditStageToggle] = useState(false);
+    const [editStageToggle] = useState(false);
     // const handleEditStageClick = (event) =>{
     //     console.log(event.target.value)
     //     // setEditFormData({...editFormData, editingStageId: stageId})
@@ -322,7 +322,7 @@ const Show3 = () => {
                         return stage.steps.map((step) => {
                             console.log("Step is "+ step.order);
                             return <Step step={step} key={step._id} />
-                            console.log(Step)
+                            
                         })
                     })
 

@@ -107,8 +107,8 @@ export const createAction2 = async({request}) => {
     
             stage.steps.forEach((step,i)=>{
                 text = text + "participant " + step.stepOwner+"\n"
-                if(lastindex == i){ 
-                    text = text + "end" + "\n"
+                if(lastindex === i){ 
+                    text = text + "end" + "\n";
                 }
             })
             
@@ -238,7 +238,7 @@ export const createAction2 = async({request}) => {
         
                 stage.steps.forEach((step,i)=>{
                     text = text + "participant " + step.stepOwner+"\n"
-                    if(lastindex == i){ 
+                    if(lastindex === i){ 
                         text = text + "end" + "\n"
                     }
                 })
