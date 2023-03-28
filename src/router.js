@@ -11,7 +11,7 @@ import { createAction2, createStageAction, deleteAction } from "./actions";
 const router = createBrowserRouter(createRoutesFromElements(
     <>
         <Route path="/" element={<App/>}>
-            <Route path="process" element={<Index/>} loader={indexLoader} />
+            <Route path="" element={<Index/>} loader={indexLoader} />
             {/* <Route path="process/:id" element={<Show/>} loader={showLoader}/> */}
             <Route path="process/:id" element={<Show3/>} loader={showLoader2}/>
             {/* <Route path="process/:id/map" element={<Map/>} loader={showLoader2}/> */}
