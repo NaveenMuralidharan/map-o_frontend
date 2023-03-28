@@ -16,7 +16,7 @@ const Edit = (params)=> {
     const data = useLoaderData();
     const { process } = data;
     console.log("process obj in show js is", process)
-    const { stages } = process;
+    // const { stages } = process;
     // const { steps } = stages;
     // TRIAL - get mermaid code from process obj
     // const { mermaidCode } = process;

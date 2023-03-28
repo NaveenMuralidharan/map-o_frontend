@@ -7,7 +7,9 @@ import Stage from "../components/Stage"
 import Step from "../components/Step"
 import React, { useState } from 'react'
 import { updateAction } from "../actions";
-
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Card from '@mui/material/Card';
 
 //TRIAL 3
 
@@ -191,12 +193,15 @@ const Show3 = () => {
     // console.log("From Show component, mermaid code fro loader data is " + mermaidCode);
 
     return (
-        <div>
+        <Container maxWidth="sm">
             <br></br>
 
-            <p>{processData.process.processName}</p>
-            <p>Organization: {processData.process.orgUnit}</p>    
-            <p>Process Owner: {processData.process.processOwner}</p>
+            <Card variant="outlined">
+                <p>{processData.process.processName}</p>
+                <p>Organization: {processData.process.orgUnit}</p>    
+                <p>Process Owner: {processData.process.processOwner}</p>
+            </Card>
+
             <hr></hr>    
 
             <div>
@@ -209,17 +214,17 @@ const Show3 = () => {
 
                 <hr></hr>
 
-            <div>
+            <Card>
                 
                 <h5> Stages of {processData.process.processName}</h5>
                 
                 <a href={`/process/${processData.process._id}/update`}>Edit Process</a>
                 
                 {!stageToggle? <div>
-                    <button 
+                    <Button variant="outlined" 
                         onClick={handleNewStageClick}>
                         Add New Stage
-                    </button>
+                    </Button>
                     
                 </div> 
                 :
@@ -264,12 +269,12 @@ const Show3 = () => {
                                     <label htmlFor="tool">Tool:</label>
                                     <input type="text" id="tool" name="tool" value={formData.tool} onChange={handleInputChange} />
                                     
-                                    <button type="submit">Submit</button>
+                                    <Button variant="outlined" type="submit">Submit</Button>
                                     
-                                    <button 
+                                    <Button variant="outlined"
                                         onClick={handleNewStageClick}>
                                                 Cancel
-                                    </button>
+                                    </Button>
                                         <br></br>
                                         
                                         
@@ -329,8 +334,8 @@ const Show3 = () => {
                     }
                 </div>
                 
-            </div>
-        </div>
+            </Card>
+        </Container>
 
  
     )

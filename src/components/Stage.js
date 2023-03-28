@@ -1,6 +1,7 @@
 
 import Step from "../components/Step"
 import React, { useState } from 'react'
+import Button from '@mui/material/Button';
 
 const Stage = ({stage}) => {
 
@@ -21,10 +22,10 @@ const Stage = ({stage}) => {
           
 
           {!stepToggle ? 
-                      <button 
+                      <Button variant="outlined"
                         onClick={handleViewStepsClick}>
                         View Steps
-                      </button>
+                      </Button>
                       
                       : <></>
           }
@@ -32,9 +33,9 @@ const Stage = ({stage}) => {
           <hr></hr>
           {stepToggle ? 
                         <div>
-                            <button onClick={handleViewStepsClick}>
+                            <Button variant="outlined" onClick={handleViewStepsClick}>
                               Cancel
-                            </button>
+                            </Button>
                             
                             <br></br>  
                           <h6>Steps in {stage.name}</h6>
