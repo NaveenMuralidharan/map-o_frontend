@@ -221,7 +221,7 @@ const Show3 = () => {
                 {/* <a href={`/process/${processData.process._id}/update`}>Edit Process</a> */}
                 
                 <Link to={`/process/${processData.process._id}/update`}>
-                        <h4>{process.processName}</h4> 
+                        <h4>Update</h4> 
                 </Link>
 
                 {!stageToggle? <div>

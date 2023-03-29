@@ -1,9 +1,9 @@
-import {Link, useLoaderData, Form} from "react-router-dom";
+import {Link, useLoaderData, Form, redirect} from "react-router-dom";
 import React, {useState} from "react";
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
-// import { deleteAction } from "../actions";
+import { deleteAction2 } from "../actions";
 
 const Index = (props) => {
     const processes = useLoaderData()
@@ -14,6 +14,13 @@ const Index = (props) => {
     const handleNewProcessClick = () => {
         setProcessToggle(!processToggle);
       };
+
+    // const handleDelete = (procssID)=>{
+    //     deleteAction2(procssID)
+    //     redirect("/")
+
+    // }
+      
     // const [show, setShow] = useState()
     // const handleDelete=(id)=>{
     //     console.log("handle delete process func")
@@ -91,9 +98,10 @@ const Index = (props) => {
                    </Link>
                     
                    <Form action={`/process/${process._id}/delete`} method="post">
-                    <Button variant="outlined" >Delete Process</Button>
+                    <Button type="submit" variant="outlined" >Delete Process</Button>
                     </Form>
 
+                   
                 </Card>
                 
             })}

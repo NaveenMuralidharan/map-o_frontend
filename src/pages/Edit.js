@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData, Form} from "react-router-dom";
+import { useLoaderData, Form, redirect} from "react-router-dom";
 import { updateAction } from "../actions";
 
 const Edit = (params)=> {
@@ -24,14 +24,6 @@ const Edit = (params)=> {
     //STATE for process meta data
     const [formData, setFormData] = useState(process)
     
-    //STATE for stages array data
-    // const [stageFormData, setStageFormData] = useState(stages)
-
-    // const [toggleStageEdit, setToggleStageEdit] = useState(false)
-    
-  
-    // console.log(stageFormData)
-
     //HANDLE CHANGE FOR Process meta data
     const handleChange = (event)=>{
         
@@ -45,12 +37,14 @@ const Edit = (params)=> {
    
     const handleSubmit = (event)=>{
         event.preventDefault();
-        // console.log("submitted form data is ", formData)
+     
         //package updated process
         const updatedProcess = {...formData}
-        // console.log("updated process before api call ", updatedProcess)
+        
         //send updated process to update backend
         updateAction(updatedProcess)
+        //redirect to show page
+        // redirect(`/process/${process._id}`)
     }
  
     // const handleStageSubmit = (event, stageIndex)=>{

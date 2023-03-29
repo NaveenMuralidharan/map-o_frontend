@@ -149,7 +149,7 @@ export const createAction2 = async({request}) => {
 
         
     //Redirect to show page
-    return redirect("/process");
+    return redirect("/");
 }
 
     export const createStageAction = async({request, params}) => {
@@ -277,8 +277,8 @@ export const createAction2 = async({request}) => {
     //TRIAL - retreive updated process obj and send to show page to update state     
     const updatedProcess = await response.json();
     console.log("updated process in Updateaction is ",updatedProcess)
-    return updatedProcess
-
+    // return updatedProcess
+    return redirect(`/process/${process._id}`)
     //Redirect to show page
     // return redirect("/process/"+process._id);
 
@@ -291,9 +291,10 @@ export const deleteAction = async({params})=>{
         method: "delete"
 
     })
-    return redirect("/process")
+    return redirect("/")
 
 }
+
 
 //create a seeddata file, save processes arr there, 
 //import into loader and action JS
