@@ -1,4 +1,4 @@
-import { useLoaderData, Form } from "react-router-dom";
+import { Link, useLoaderData, Form } from "react-router-dom";
 // import { showLoader } from "../loaders";
 // import CreateStage from "./Edit"
 import Mermaid from "../Mermaid";
@@ -218,8 +218,12 @@ const Show3 = () => {
                 
                 <h5> Stages of {processData.process.processName}</h5>
                 
-                <a href={`/process/${processData.process._id}/update`}>Edit Process</a>
+                {/* <a href={`/process/${processData.process._id}/update`}>Edit Process</a> */}
                 
+                <Link to={`/process/${processData.process._id}/update`}>
+                        <h4>{process.processName}</h4> 
+                </Link>
+
                 {!stageToggle? <div>
                     <Button variant="outlined" 
                         onClick={handleNewStageClick}>
