@@ -68,7 +68,7 @@ const Edit = (params)=> {
     console.log(formData._id)
 
     return (<>
-        <Container maxWidth="sm" sx={{ bgcolor: '#e8f0fc' }}>
+        <Container sx={{ bgcolor: '#e8f0fc' }}>
             <AppBar position="static">
                 <Toolbar sx={{
                     width: "100%",
