@@ -25,12 +25,12 @@ import {
 
   const theme = createTheme();
   theme.typography.h5 = {
-    fontSize: '1.0rem',
+    fontSize: '1.8rem',
     '@media (min-width:600px)': {
-      fontSize: '1.0rem',
+      fontSize: '2.0rem',
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '1.0rem',
+      fontSize: '2.3rem',
     },
   };
   
@@ -48,6 +48,7 @@ const Index = (props) => {
 
     return <>
     
+    <Container sx={{ bgcolor: '#e8f0fc' }}>
 
     <AppBar position="static">
     <Toolbar sx={{
@@ -65,15 +66,15 @@ const Index = (props) => {
           >
             <RouteIcon />
         </IconButton>
-        
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <ThemeProvider theme={theme}>
+        <Typography variant="h5" component="div">
             Process Mapper
         </Typography>
+        </ThemeProvider>
     </Toolbar>
     </AppBar>
 
-    <Container sx={{ bgcolor: '#e8f0fc' }}>
-
+    
       <Container maxWidth="md">
       <Box
       sx={{
@@ -121,7 +122,8 @@ const Index = (props) => {
               '& > :not(style)': {
                 m: 1,
                 width: "100%",
-                height: 130,
+                padding: 1
+                // height: 130,
                 
               },
             }}

@@ -31,12 +31,12 @@ import Paper from '@mui/material/Paper';
 const theme = createTheme();
 
   theme.typography.h5 = {
-    fontSize: '1.0rem',
+    fontSize: '1.8rem',
     '@media (min-width:600px)': {
-      fontSize: '1.0rem',
+      fontSize: '2.0rem',
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '1.0rem',
+      fontSize: '2.3rem',
     },
   };
   
