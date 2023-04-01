@@ -112,7 +112,7 @@ const Edit = (params)=> {
                                     value={formData.orgUnit}
                                     onChange={handleChange}
                                     inputProps={{style: {fontSize: 16}}} // font size of input text
-                                    InputLabelProps={{style: {fontSize: 12}}} // font size of input label
+                                    InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                     />
 
                     <TextField
@@ -124,6 +124,8 @@ const Edit = (params)=> {
                                     name="processName"
                                     value={formData.processName}
                                     onChange={handleChange}
+                                    inputProps={{style: {fontSize: 16}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                     />
                     
                                         
@@ -135,6 +137,8 @@ const Edit = (params)=> {
                                     name="processOwner"
                                     value={formData.processOwner}
                                     onChange={handleChange}
+                                    inputProps={{style: {fontSize: 16}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                     />
                     </Stack>
 
@@ -160,7 +164,8 @@ const Edit = (params)=> {
                                     label="Stage Order"
                                     name="order"
                                     value={formData.stages[stageIndex].order}
-                                    
+                                    inputProps={{style: {fontSize: 16}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                 />
                                 <br></br>
                                 <br></br>                           
@@ -170,6 +175,8 @@ const Edit = (params)=> {
                                     id="outlined-required"
                                     label="Stage name"
                                     name="name"
+                                    inputProps={{style: {fontSize: 16}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                     value={formData.stages[stageIndex].name}
                                     onChange={(e)=> {
 
@@ -191,6 +198,8 @@ const Edit = (params)=> {
                                     id="outlined-required"
                                     label="Stage owner"
                                     name="stageOwner"
+                                    inputProps={{style: {fontSize: 16}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                     value={formData.stages[stageIndex].stageOwner}
                                     onChange={(e)=> {
 
@@ -207,6 +216,8 @@ const Edit = (params)=> {
                                     id="outlined-required"
                                     label="Stage Org unit"
                                     name="orgUnit"
+                                    inputProps={{style: {fontSize: 16}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                     value={formData.stages[stageIndex].orgUnit}
                                     onChange={(e)=> {
 
@@ -230,24 +241,28 @@ const Edit = (params)=> {
                                     <Stack direction="row" spacing={2}>       
                                         <TextField
                                             disabled
-                                    id="outlined-required"
-                                    label="Step order"
-                                    name="order"
+                                            id="outlined-required"
+                                            label="Step order"
+                                            name="order"
+                                            inputProps={{style: {fontSize: 16}}} // font size of input text
+                                            InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                             value={formData.stages[stageIndex].steps[stepIndex].order}
-                                            // onChange={handleChange}
+                                                    // onChange={handleChange}
                                         />
 
                                         <TextField
                                             required
-                                    id="outlined-required"
-                                    label="Step action"
-                                    name="action"
-                                    value={formData.stages[stageIndex].steps[stepIndex].action}
-                                    onChange={(e)=> {
-                                                  
-                                        const stepFormCopy = JSON.parse(JSON.stringify(formData))
-                                        stepFormCopy.stages[stageIndex].steps[stepIndex].action = e.target.value;
-                                        setFormData(stepFormCopy)
+                                            id="outlined-required"
+                                            label="Step action"
+                                            name="action"
+                                            inputProps={{style: {fontSize: 16}}} // font size of input text
+                                            InputLabelProps={{style: {fontSize: 16}}} // font size of input label
+                                            value={formData.stages[stageIndex].steps[stepIndex].action}
+                                            onChange={(e)=> {
+                                                        
+                                                const stepFormCopy = JSON.parse(JSON.stringify(formData))
+                                                stepFormCopy.stages[stageIndex].steps[stepIndex].action = e.target.value;
+                                                setFormData(stepFormCopy)
 
                                             }}
                                         />
@@ -261,6 +276,8 @@ const Edit = (params)=> {
                                     id="outlined-required"
                                     label="Step owner"
                                     name="stepOwner"
+                                    inputProps={{style: {fontSize: 16}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                     value={formData.stages[stageIndex].steps[stepIndex].stepOwner}
                                     onChange={(e)=> {
                                                   
@@ -276,6 +293,8 @@ const Edit = (params)=> {
                                     id="outlined-required"
                                     label="Pass to"
                                     name="pass_to"
+                                    inputProps={{style: {fontSize: 16}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                     value={formData.stages[stageIndex].steps[stepIndex].pass_to}
                                     onChange={(e)=> {
                                                   
@@ -299,6 +318,8 @@ const Edit = (params)=> {
                                     id="outlined-required"
                                     label="Purpose"
                                     name="purpose"
+                                    inputProps={{style: {fontSize: 16}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                     value={formData.stages[stageIndex].steps[stepIndex].purpose}
                                     onChange={(e)=> {
                                                   
@@ -318,6 +339,8 @@ const Edit = (params)=> {
                                         id="outlined-required"
                                         label="Channel"
                                         name="channel"
+                                        inputProps={{style: {fontSize: 16}}} // font size of input text
+                                        InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                         value={formData.stages[stageIndex].steps[stepIndex].channel}
                                         onChange={(e)=> {
                                                     
@@ -333,6 +356,8 @@ const Edit = (params)=> {
                                         id="outlined-required"
                                         label="Tool"
                                         name="tool"
+                                        inputProps={{style: {fontSize: 16}}} // font size of input text
+                                        InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                         value={formData.stages[stageIndex].steps[stepIndex].tool}
                                         onChange={(e)=> {
                                                     
@@ -349,6 +374,8 @@ const Edit = (params)=> {
                                             id="outlined-required"
                                             label="Document"
                                             name="docType"
+                                            inputProps={{style: {fontSize: 16}}} // font size of input text
+                                            InputLabelProps={{style: {fontSize: 16}}} // font size of input label
                                             value={formData.stages[stageIndex].steps[stepIndex].docType}
                                             onChange={(e)=> {
                                                         
