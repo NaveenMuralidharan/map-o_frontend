@@ -68,7 +68,7 @@ const Edit = (params)=> {
     console.log(formData._id)
 
     return (<>
-
+        <Container maxWidth="sm" sx={{ bgcolor: '#e8f0fc' }}>
             <AppBar position="static">
                 <Toolbar sx={{
                     width: "100%",
@@ -86,13 +86,13 @@ const Edit = (params)=> {
                         <RouteIcon />
                     </IconButton>
         
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <Typography variant="h5" component="div" >
                     Process Mapper
                 </Typography>
                 </Toolbar>
             </AppBar>
                     
-            <Container maxWidth="sm" sx={{ bgcolor: '#e8f0fc' }}>
+            {/* <Container maxWidth="sm" sx={{ bgcolor: '#e8f0fc' }}> */}
                 <br></br>
             <Card>
                 <ThemeProvider theme={theme}>

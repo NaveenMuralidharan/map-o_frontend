@@ -196,7 +196,11 @@ const Show3 = () => {
 
     // console.log("From Show component, mermaid code fro loader data is " + mermaidCode);
 
-    return (<Container sx={{ bgcolor: '#e8f0fc' }}>
+    return (
+    
+    <>
+    
+    <Container sx={{ bgcolor: '#e8f0fc' }}>
         
             
     <AppBar position="static">
@@ -217,13 +221,20 @@ const Show3 = () => {
             <RouteIcon />
         </IconButton>
         <ThemeProvider theme={theme}>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h5" component="div" >
             Process Mapper
         </Typography>
         </ThemeProvider>
     </Toolbar>
     </AppBar>
-    
+    <br></br>
+    <Paper elevation={3}>
+                <ThemeProvider theme={theme}>
+                <Typography variant="h5"> {processData.process.processName} Process Map</Typography>
+                </ThemeProvider>
+                <br></br>    
+                <Mermaid chart={processData.mermaidCode} />
+    </Paper>
     <Container maxWidth="sm" sx={{ bgcolor: '#e8f0fc' }}>    
         <br></br>
         <Box sx={{
@@ -345,13 +356,13 @@ const Show3 = () => {
 
             <br></br>    
                 
-            <Paper elevation={3}>
+            {/* <Paper elevation={3}>
                 <ThemeProvider theme={theme}>
                 <Typography variant="h5"> {processData.process.processName} Process Map</Typography>
                 </ThemeProvider>
                 <br></br>    
                 <Mermaid chart={processData.mermaidCode} />
-            </Paper>
+            </Paper> */}
             
             <br></br>    
              
@@ -369,9 +380,10 @@ const Show3 = () => {
                         // startIcon = {<AddIcon />} 
                         onClick={handleNewStageClick}>
                         {/* Add New Stage */}
-                        <ThemeProvider theme={theme}>
+                        {/* <ThemeProvider theme={theme}>
                             <Typography variant="h5">Add Stage</Typography>
-                        </ThemeProvider>
+                        </ThemeProvider> */}
+                        Add Stage
                     </Button>
                     
                 </div> 
@@ -557,7 +569,8 @@ const Show3 = () => {
         </Container>
 
  
-        </Container>)
+        </Container>
+        </>)
 
 }
 export default Show3;
