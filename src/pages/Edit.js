@@ -1,26 +1,42 @@
 import { useState } from "react";
-import { useLoaderData, Form, redirect} from "react-router-dom";
+import { useLoaderData, Form, Link} from "react-router-dom";
 import { updateAction } from "../actions";
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Card from '@mui/material/Card';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import {
+    createTheme,
+    responsiveFontSizes,
+    ThemeProvider,
+  } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import RouteIcon from '@mui/icons-material/Route';
+
+  const theme = createTheme();
+
+  theme.typography.h5 = {
+    fontSize: '0.8rem',
+    '@media (min-width:600px)': {
+      fontSize: '1.0rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1.5rem',
+    },
+  };
+
 
 const Edit = (params)=> {
     
-    // const data = useLoaderData();
     
-    // const {process} = data
-    
-    // const { stages } = process
-    // const { steps } = stages
-    // //Destructure
-    // console.log("process from loader data is ", process)
-    // const {formData, setFormData} = useState(process)
     const data = useLoaderData();
     const { process } = data;
-    console.log("process obj in show js is", process)
-    // const { stages } = process;
-    // const { steps } = stages;
-    // TRIAL - get mermaid code from process obj
-    // const { mermaidCode } = process;
-
+    console.log("process obj in EDIT js is", process)
+   
     //STATE for process meta data
     const [formData, setFormData] = useState(process)
     
@@ -30,7 +46,7 @@ const Edit = (params)=> {
         const{name, value} = event.target
         // console.log("name and value are", name, value)
         setFormData((prevState)=>({...prevState, [name]: value}))
-        // console.log("PROCESS METADATA EDIT - set form data is ", formData)
+        console.log("PROCESS METADATA EDIT - set form data is ", formData)
 
     }
     //HANDLE SUBMIT FOR Process meta data
@@ -39,113 +55,158 @@ const Edit = (params)=> {
         event.preventDefault();
      
         //package updated process
+        console.log("formdata being used in handlesubmit is ", formData)
         const updatedProcess = {...formData}
         
         //send updated process to update backend
         updateAction(updatedProcess)
-        //redirect to show page
-        // redirect(`/process/${process._id}`)
+ 
     }
  
-    // const handleStageSubmit = (event, stageIndex)=>{
-    //     event.preventDefault()
 
-    //     const formDataCopy = JSON.parse(JSON.stringify(formData))
-    //     formDataCopy.stages[stageIndex].name = event.target.value;
-    //     console.log(formDataCopy, formData)    
+
+    console.log(formData._id)
+
+    return (<>
+
+            <AppBar position="static">
+                <Toolbar sx={{
+                    width: "100%",
+                    maxWidth: 600,
+                    mx: "auto"
+                    }}>
+                    <IconButton
+                        size="large"
+                        // edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{ mr: 2 }}
+                        component={Link} to="/"
+                    >
+                        <RouteIcon />
+                    </IconButton>
         
-    //     setFormData(formDataCopy)
-    // }
-    
-    // //handle change to stage in process
-    // const handleStageChange = (stageIndex, event)=>{
-    //     //get updated stage values and key from event target
-    //     const {name, value} = event.target
-        
-    //     //save the current stage's data and update it with new key value
-    //     const updatedStages = {...formData.stages}
-    //     updatedStages[stageIndex] = {...updatedStages[stageIndex], [name]: value};
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    Process Mapper
+                </Typography>
+                </Toolbar>
+            </AppBar>
+                    
+            <Container maxWidth="sm" sx={{ bgcolor: '#e8f0fc' }}>
+                <br></br>
+            <Card>
+                <ThemeProvider theme={theme}>
+            <Typography variant="h5">Editing Process: </Typography>
+                 <br></br>   
+                <Form onSubmit={handleSubmit}>
 
-    //     //set form data with new stage
-    //     setFormData({...formData, stages: updatedStages})
-    //     console.log("STAGES EDIT - set form data is ", formData)
-    // }
+                    {/* Process metadata edit */}
+                    <Container>                 
+                    <Stack direction="column" spacing={2}>
+                    <TextField
+                                    required
+                                    // multiline
+                                    id="outlined-required"
+                                    label="Organization unit"
+                                    name="orgUnit"
+                                    value={formData.orgUnit}
+                                    onChange={handleChange}
+                    />
 
-    // const handleStepChange = (stepIndex, stageIndex, event)=>{
-    //     //get name and value from event target
-    //     const{name, value} = event.target;
+                    <TextField
+                                    required
+                                    // multiline
+                                    id="outlined-required"
+                                    label="Process Name"
+                                    // helperText="Use identifiable names for processes"
+                                    name="processName"
+                                    value={formData.processName}
+                                    onChange={handleChange}
+                    />
+                    
+                                        
+                    <TextField
+                                    required
+                                    
+                                    id="outlined-required"
+                                    label="Process owner"
+                                    name="processOwner"
+                                    value={formData.processOwner}
+                                    onChange={handleChange}
+                    />
+                    </Stack>
 
-    //     //copy steps array from current state and modify the specific step
-    //     const updatedSteps = {...formData.stages[stageIndex].steps}
-    //     updatedSteps[stepIndex] = {...updatedSteps[stepIndex], [name]: value}
+                    
+                    </Container> 
+                    <hr></hr>  
 
-    //     //set form data with new step
-    //     setFormData({...process.stages[stageIndex].steps, updatedSteps})
-
-    // }
-
-
-    console.log(formData)
-
-    return (
-        <div>
-            <h2>Edit Process: </h2>
-           
-            <div>
-                    <Form onSubmit={handleSubmit}>
-                        
-                        <label>Org Unit:</label>
-                        <input type="text" 
-                                  name="orgUnit"
-                                  value={formData.orgUnit} 
-                                  onChange={handleChange} />
-
-                        <label>Process Name:</label>
-                        <input type="text" 
-                                  name="processName"
-                                  value={formData.processName} 
-                                  onChange={handleChange} />          
-
-                        <label>Process Owner:</label>
-                        <input type="text" 
-                                  name="processOwner"
-                                  value={formData.processOwner} 
-                                  onChange={handleChange} />  
-
+                    {/* Stages and Stepa edit */}
 
                     {formData.stages.map((stage, stageIndex) => {
                         console.log({stage})
-                        return (<div>
-                                <h5>{stage.order} - {stage.name}</h5>
-                                
-                                <label>Stage Name</label>
-                                <input type="text" name="name" value={formData.stages[stageIndex].name}                        
-                                onChange={(e)=> {
 
-                                    const formDataCopy = JSON.parse(JSON.stringify(formData))
-                                    formDataCopy.stages[stageIndex].name = e.target.value;
-                                    console.log(formDataCopy, formData)    
+                        return (
+                        
+                        <Container>
+                            <Stack direction="row" spacing={2}>
+                                {/* <h5>{stage.order} - {stage.name}</h5> */}
+
+                               
+                                <TextField
+                                    disabled
+                                    id="outlined-required"
+                                    label="Stage Order"
+                                    name="order"
+                                    value={formData.stages[stageIndex].order}
                                     
-                                    setFormData(formDataCopy)
- 
-                                    }}></input>
-
-                                <label>Stage Owner</label>
-                                <input type="text" name="stageOwner" value={formData.stages[stageIndex].stageOwner}                        
-                                onChange={(e)=> {
-
-                                    const formDataCopy = JSON.parse(JSON.stringify(formData))
-                                    formDataCopy.stages[stageIndex].stageOwner = e.target.value;
-                                    console.log(formDataCopy, formData)    
+                                />
+                                <br></br>
+                                <br></br>                           
+                                <TextField
+                                    required
                                     
-                                    setFormData(formDataCopy)
- 
-                                    }}></input>        
+                                    id="outlined-required"
+                                    label="Stage name"
+                                    name="name"
+                                    value={formData.stages[stageIndex].name}
+                                    onChange={(e)=> {
 
-                                
-                                <label>Org Unit:</label>
-                                <input type="text" name="orgUnit" value={formData.stages[stageIndex].orgUnit}                        
-                                onChange={(e)=> {
+                                        const formDataCopy = JSON.parse(JSON.stringify(formData))
+                                        formDataCopy.stages[stageIndex].name = e.target.value;
+                                        console.log(formDataCopy, formData)    
+                                        
+                                        setFormData(formDataCopy)
+     
+                                        }}
+                                />
+                            </Stack>
+                            <br></br>
+                       
+                            <Stack direction="row" spacing={2}>
+
+                            <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Stage owner"
+                                    name="stageOwner"
+                                    value={formData.stages[stageIndex].stageOwner}
+                                    onChange={(e)=> {
+
+                                        const formDataCopy = JSON.parse(JSON.stringify(formData))
+                                        formDataCopy.stages[stageIndex].stageOwner = e.target.value;
+                                        console.log(formDataCopy, formData)    
+                                        
+                                        setFormData(formDataCopy)
+     
+                                        }}
+                            />
+                            <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Stage Org unit"
+                                    name="orgUnit"
+                                    value={formData.stages[stageIndex].orgUnit}
+                                    onChange={(e)=> {
 
                                     const formDataCopy = JSON.parse(JSON.stringify(formData))
                                     formDataCopy.stages[stageIndex].orgUnit = e.target.value;
@@ -153,141 +214,185 @@ const Edit = (params)=> {
                                     
                                     setFormData(formDataCopy)
  
-                                    }}></input>        
-        
+                                    }}
+                            />   
+                            </Stack>
 
+  
+                            <hr></hr>
 
                         {stage.steps.map((step, stepIndex)=>{
                             console.log({step})
                             return (<div>
                                     
-                                    <h6>{step.order}</h6>
-                                    
-                                    <label>Step Action</label>
-                                    <input type="text"
-                                            name="action"
-                                            value={formData.stages[stageIndex].steps[stepIndex].action}
+                                    <Stack direction="row" spacing={2}>       
+                                        <TextField
+                                            disabled
+                                    id="outlined-required"
+                                    label="Step order"
+                                    name="order"
+                                            value={formData.stages[stageIndex].steps[stepIndex].order}
+                                            // onChange={handleChange}
+                                        />
+
+                                        <TextField
+                                            required
+                                    id="outlined-required"
+                                    label="Step action"
+                                    name="action"
+                                    value={formData.stages[stageIndex].steps[stepIndex].action}
+                                    onChange={(e)=> {
+                                                  
+                                        const stepFormCopy = JSON.parse(JSON.stringify(formData))
+                                        stepFormCopy.stages[stageIndex].steps[stepIndex].action = e.target.value;
+                                        setFormData(stepFormCopy)
+
+                                            }}
+                                        />
+                                    </Stack>
+                                    <br></br>
+                           
+
+                                    <Stack direction="row" spacing={2}>
+                                        <TextField
+                                            required
+                                    id="outlined-required"
+                                    label="Step owner"
+                                    name="stepOwner"
+                                    value={formData.stages[stageIndex].steps[stepIndex].stepOwner}
+                                    onChange={(e)=> {
+                                                  
+                                        const stepFormCopy = JSON.parse(JSON.stringify(formData))
+                                        stepFormCopy.stages[stageIndex].steps[stepIndex].stepOwner = e.target.value;
+                                        setFormData(stepFormCopy)
+
+                                        }}
+                                    />
+                                                   
+                                    <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Pass to"
+                                    name="pass_to"
+                                    value={formData.stages[stageIndex].steps[stepIndex].pass_to}
+                                    onChange={(e)=> {
+                                                  
+                                        const stepFormCopy = JSON.parse(JSON.stringify(formData))
+                                        stepFormCopy.stages[stageIndex].steps[stepIndex].pass_to = e.target.value;
+                                        setFormData(stepFormCopy)
+
+                                        }}
+                                    />
+                                    </Stack>
+                                    <br></br>
+                                    <br></br>
+                                    <Stack direction="row" spacing={2}>
+                                        
+                                    </Stack>   
+
+                                    <Stack>
+                                    <TextField
+                                    required
+                                    multiline
+                                    id="outlined-required"
+                                    label="Purpose"
+                                    name="purpose"
+                                    value={formData.stages[stageIndex].steps[stepIndex].purpose}
+                                    onChange={(e)=> {
+                                                  
+                                        const stepFormCopy = JSON.parse(JSON.stringify(formData))
+                                        stepFormCopy.stages[stageIndex].steps[stepIndex].purpose = e.target.value;
+                                        setFormData(stepFormCopy)
+
+                                        }}
+                                    />
+                                    </Stack> 
+                                    <br></br>
+                             
+
+                                    <Stack>    
+                                        <TextField
+                                        required
+                                        id="outlined-required"
+                                        label="Channel"
+                                        name="channel"
+                                        value={formData.stages[stageIndex].steps[stepIndex].channel}
+                                        onChange={(e)=> {
+                                                    
+                                            const stepFormCopy = JSON.parse(JSON.stringify(formData))
+                                            stepFormCopy.stages[stageIndex].steps[stepIndex].channel = e.target.value;
+                                            setFormData(stepFormCopy)
+
+                                            }}
+                                        />
+                                        <br></br>
+                                        <TextField
+                                        required
+                                        id="outlined-required"
+                                        label="Tool"
+                                        name="tool"
+                                        value={formData.stages[stageIndex].steps[stepIndex].tool}
+                                        onChange={(e)=> {
+                                                    
+                                            const stepFormCopy = JSON.parse(JSON.stringify(formData))
+                                            stepFormCopy.stages[stageIndex].steps[stepIndex].tool = e.target.value;
+                                            setFormData(stepFormCopy)
+
+                                            }}
+                                        />
+                                        <br></br>
+                                    </Stack>
+                                        <TextField
+                                            required
+                                            id="outlined-required"
+                                            label="Document"
+                                            name="docType"
+                                            value={formData.stages[stageIndex].steps[stepIndex].docType}
                                             onChange={(e)=> {
-                                                
-                                                
+                                                        
                                                 const stepFormCopy = JSON.parse(JSON.stringify(formData))
-                                                stepFormCopy.stages[stageIndex].steps[stepIndex].action = e.target.value;
-                                                // console.log(stepFormCopy, formData)
+                                                stepFormCopy.stages[stageIndex].steps[stepIndex].docType = e.target.value;
                                                 setFormData(stepFormCopy)
-                                                // console.log(formData)
 
+                                                }}
+                                        />
+                                    <Stack>
 
-                                                }}>
+                                    </Stack>
+                                    <hr></hr>
 
-                                    </input>
-
-                                    <label>Step Owner</label>
-                                    <input type="text"
-                                            name="stepOwner"
-                                            value={formData.stages[stageIndex].steps[stepIndex].stepOwner}
-                                            onChange={(e)=> {
-                                                
-                                                
-                                                const stepFormCopy = JSON.parse(JSON.stringify(formData))
-                                                stepFormCopy.stages[stageIndex].steps[stepIndex].stepOwner = e.target.value;
-                                                // console.log(stepFormCopy, formData)
-                                                setFormData(stepFormCopy)
-                                                // console.log(formData)
-
-
-                                                }}>
-
-                                    </input>
-
-                                    <label>Pass to:</label>
-                                    <input type="text"
-                                            name="pass_to"
-                                            value={formData.stages[stageIndex].steps[stepIndex].pass_to}
-                                            onChange={(e)=> {
-                                                
-                                                
-                                                const stepFormCopy = JSON.parse(JSON.stringify(formData))
-                                                stepFormCopy.stages[stageIndex].steps[stepIndex].pass_to = e.target.value;
-                                                // console.log(stepFormCopy, formData)
-                                                setFormData(stepFormCopy)
-                                                // console.log(formData)
-
-
-                                                }}>
-
-                                    </input>
-
-                                    <label>Purpose:</label>
-                                    <input type="text"
-                                            name="purpose"
-                                            value={formData.stages[stageIndex].steps[stepIndex].purpose}
-                                            onChange={(e)=> {
-                                                
-                                                
-                                                const stepFormCopy = JSON.parse(JSON.stringify(formData))
-                                                stepFormCopy.stages[stageIndex].steps[stepIndex].purpose = e.target.value;
-                                                // console.log(stepFormCopy, formData)
-                                                setFormData(stepFormCopy)
-                                                // console.log(formData)
-
-
-                                                }}>
-
-                                    </input>
-
-                                    <label>Channel:</label>
-                                    <input type="text"
-                                            name="channel"
-                                            value={formData.stages[stageIndex].steps[stepIndex].channel}
-                                            onChange={(e)=> {
-                                                
-                                                
-                                                const stepFormCopy = JSON.parse(JSON.stringify(formData))
-                                                stepFormCopy.stages[stageIndex].steps[stepIndex].channel = e.target.value;
-                                                // console.log(stepFormCopy, formData)
-                                                setFormData(stepFormCopy)
-                                                // console.log(formData)
-
-
-                                                }}>
-
-                                    </input>
-
-                                    <label>Tool:</label>
-                                    <input type="text"
-                                            name="tool"
-                                            value={formData.stages[stageIndex].steps[stepIndex].tool}
-                                            onChange={(e)=> {
-                                                
-                                                
-                                                const stepFormCopy = JSON.parse(JSON.stringify(formData))
-                                                stepFormCopy.stages[stageIndex].steps[stepIndex].tool = e.target.value;
-                                                // console.log(stepFormCopy, formData)
-                                                setFormData(stepFormCopy)
-                                                // console.log(formData)
-
-
-                                                }}>
-
-                                    </input>
 
                                 </div>)
 
                         })}
                             
-                        </div>)    
+                    </Container>)    
                         
                         
                     })} 
 
-                    <button type="submit"> Edit Process information </button>
-                    </Form>    
+                    {/* <button type="submit"> Edit Process information </button> */}
 
-            </div>
+                    <Button variant="contained" type="submit">
+                        Update
+                    </Button>
+
+                    <br></br>
+                    <br></br>
+
+                    <Link to={`/process/${process._id}`}>
+                        <p>Back to Process Map</p> 
+                   </Link>
+
+                </Form>    
+
+            {/* </Box> */}
 
                 
-        
-        </div>
+                </ThemeProvider>
+            </Card>
+        </Container>
+        </>
     );
 }
 

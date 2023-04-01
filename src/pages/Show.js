@@ -10,6 +10,36 @@ import { updateAction } from "../actions";
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import AddIcon from '@mui/icons-material/Add';
+import {
+    createTheme,
+    responsiveFontSizes,
+    ThemeProvider,
+  } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import RouteIcon from '@mui/icons-material/Route';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Paper from '@mui/material/Paper';  
+
+const theme = createTheme();
+
+  theme.typography.h5 = {
+    fontSize: '1.0rem',
+    '@media (min-width:600px)': {
+      fontSize: '1.0rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '1.0rem',
+    },
+  };
+  
 
 //TRIAL 3
 
@@ -36,6 +66,13 @@ const Show3 = () => {
                                                 })
     console.log("recently set mermaidcode is, ", processData.mermaidCode)
                                             
+    
+    // Toggle process options 
+    const [processToggle, setProcessToggle] = useState(false);
+    const handleProcessOptionsClick = ()=>{
+        setProcessToggle(!processToggle)
+    }
+    
 
     //Toggle Add stage form visibility
     const [stageToggle, setStageToggle] = useState(false);
@@ -57,6 +94,7 @@ const Show3 = () => {
         //Create a shallow copy of process update process object with new stage
         const updatedProcess = {...process}
         const newStageOrder = updatedProcess.stages.length + 1; 
+        const newStepOrder = newStageOrder + 0.1;
         console.log("updated process before stage pus is ", updatedProcess)
 
         updatedProcess.stages.push({
@@ -67,7 +105,7 @@ const Show3 = () => {
                                                         contactDetails: formData.contactDetails,
                                                         steps:      [
                                                                         {
-                                                                            order:          1.1,
+                                                                            order:          newStepOrder,
                                                                             stepOwner:      formData.stepOwner,
                                                                             action:         formData.stepAction,
                                                                             pass_to:        formData.pass_to, 
@@ -80,15 +118,11 @@ const Show3 = () => {
         
         console.log("updated process AFTER stage push is ", updatedProcess)
         
-        //TRIAL (FAIL)- CALL UPDATE ACTION FROM ACTION JS
-        // updateAction(updatedProcess)
-        
-        
-
         //TRIAL - Atempt to get upated process obj
         //returned from update ACtion to update state, processData
             const retrievedProcess = await updateAction(updatedProcess);       
-            console.log("retrieved process is ", retrievedProcess)                                              
+            console.log("retrieved process is ", retrievedProcess) 
+
           const retrievedStages = await retrievedProcess.stages  
           setProcessData({...processData, stages: retrievedStages})
         // handleStateUpdate(processData.stages, retrievedProcess.stages)                                                
@@ -133,8 +167,7 @@ const Show3 = () => {
             //create coy of stages, push new stage
             // setProcessData(processData.process, retrievedProcess)
         //clear form    
-        
-        //close add form
+        handleNewStageClick();
 
     }
 
@@ -142,46 +175,17 @@ const Show3 = () => {
     
     //EDIT FORM TRIAL
     const [editStageToggle] = useState(false);
-    // const handleEditStageClick = (event) =>{
-    //     console.log(event.target.value)
-    //     // setEditFormData({...editFormData, editingStageId: stageId})
-    //     // console.log("stage currently editig is ", editFormData.stageId)
-    //     setEditStageToggle(!editStageToggle)
-    // }
-
-    // const trackEditingStage = (stageId)=>{
-    //     console.log("TEST - stage being edited is ", trackEditingStage)    
-    // }
 
     const handleEditStageSubmit = (event)=>{
         event.preventDefault(); 
         console.log("Edit form data is ",editFormData);
 
-
-        //build new stage object
-        // const updatedStage= {
-        //     order:      editFormData.order,
-        //     name:       editFormData.name,
-        //     orgUnit:    editFormData.orgUnit,
-        //     stageOwner: editFormData.stageOwner,
-        //     contactDetails: editFormData.contactDetails,
-
-        // }
-        
     }
 
     const handleEditInputChange = (event) =>{
         const {name, value} = event.target;
         setEditFormData((prevState) =>({...prevState, [name]: value}))
     }
-
-
-    // const handleStateUpdate = (state, newState) =>{
-    //     const oldState = [...state]
-    //     console.log({oldState, newState})
-
-    // }
-
 
     const handleInputChange = (event) =>{
         const { name, value } = event.target;
@@ -192,42 +196,182 @@ const Show3 = () => {
 
     // console.log("From Show component, mermaid code fro loader data is " + mermaidCode);
 
-    return (
-        <Container maxWidth="sm">
-            <br></br>
-
-            <Card variant="outlined">
-                <p>{processData.process.processName}</p>
-                <p>Organization: {processData.process.orgUnit}</p>    
-                <p>Process Owner: {processData.process.processOwner}</p>
-            </Card>
-
-            <hr></hr>    
-
-            <div>
-                {/* {processData.mermaidCode} */}
-
-                {/* DISPLAY MERMAID CHART */}
-                <Mermaid chart={processData.mermaidCode} />
-            </div>
+    return (<Container sx={{ bgcolor: '#e8f0fc' }}>
+        
             
+    <AppBar position="static">
+        <Toolbar sx={{
+        width: "100%",
+        maxWidth: 600,
+        mx: "auto"
+        }}>
+        
+        <IconButton
+            size="large"
+            // edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            component={Link} to="/"
+          >
+            <RouteIcon />
+        </IconButton>
+        <ThemeProvider theme={theme}>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Process Mapper
+        </Typography>
+        </ThemeProvider>
+    </Toolbar>
+    </AppBar>
+    
+    <Container maxWidth="sm" sx={{ bgcolor: '#e8f0fc' }}>    
+        <br></br>
+        <Box sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    '& > :not(style)': {
+                    m: 1,
+                    width: "100%",
+                    // height: 100,
+                    padding: 2,
+                            },
+            }}>
 
-                <hr></hr>
+            <Paper elevation={3}>
+
+            <ThemeProvider theme={theme}>
+            
+            <Typography variant="h5">{processData.process.processName}</Typography>
+            
+            <Typography variant="h5">Organization: {processData.process.orgUnit}</Typography>    
+            <Typography variant="h5">Process Owner: {processData.process.processOwner}</Typography>
+            <br></br>
+            
+            {/*  */}
+
+            { !processToggle? <>
+            
+                <Button variant="outlined"
+                        onClick={handleProcessOptionsClick}>
+                    View options
+                </Button>
+                
+            </>: <></>}
+
+            {processToggle? 
+            
+                <>
+                    <Button variant="contained"
+                        onClick={handleProcessOptionsClick}>
+                        Close
+                    </Button>
+                
+                </> : <></>}
+            
+            {processToggle? 
+                <>
+                    <Stack direction="column" spacing={0}>
+                        <IconButton
+                            size="medium"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 0 }}
+                            component={Link} to={`/process/${process._id}/update`}
+                        >
+                    <BorderColorIcon />
+                    <ThemeProvider theme={theme}>
+                            <Typography variant="h5">EDIT</Typography>
+                        </ThemeProvider> 
+                    </IconButton>
+       
+                        <Form action={`/process/${process._id}/delete`} method="post">
+                            <IconButton
+                                                    size="medium"
+                                                    edge="start"
+                                                    color="inherit"
+                                                    aria-label="menu"
+                                                    sx={{ mr: 0 }}
+                                                    type="submit"
+                            >
+                                <DeleteIcon />
+                            <ThemeProvider theme={theme}>
+                                <Typography variant="h5">Delete</Typography>
+                            </ThemeProvider>    
+                                    </IconButton>
+                        </Form>
+                    </Stack>         
+            </>: <></>}
+
+            {/* <Stack direction="column" spacing={0}>
+                <IconButton
+                    size="medium"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    sx={{ mr: 0 }}
+                    component={Link} to={`/process/${process._id}/update`}
+                >
+                    <BorderColorIcon />
+                    <ThemeProvider theme={theme}>
+                            <Typography variant="h5">EDIT</Typography>
+                        </ThemeProvider> 
+                    </IconButton>
+       
+                        <Form action={`/process/${process._id}/delete`} method="post">
+                            <IconButton
+                                                    size="medium"
+                                                    edge="start"
+                                                    color="inherit"
+                                                    aria-label="menu"
+                                                    sx={{ mr: 0 }}
+                                                    type="submit"
+                            >
+                                <DeleteIcon />
+                            <ThemeProvider theme={theme}>
+                                <Typography variant="h5">Delete</Typography>
+                            </ThemeProvider>    
+                                    </IconButton>
+                        </Form>
+            </Stack> */}
+
+            {/*  */}
+            
+            
+            </ThemeProvider>
+                
+             </Paper>   
+            </Box>
+
+            <br></br>    
+                
+            <Paper elevation={3}>
+                <ThemeProvider theme={theme}>
+                <Typography variant="h5"> {processData.process.processName} Process Map</Typography>
+                </ThemeProvider>
+                <br></br>    
+                <Mermaid chart={processData.mermaidCode} />
+            </Paper>
+            
+            <br></br>    
+             
 
             <Card>
-                
-                <h5> Stages of {processData.process.processName}</h5>
-                
-                {/* <a href={`/process/${processData.process._id}/update`}>Edit Process</a> */}
-                
-                <Link to={`/process/${processData.process._id}/update`}>
-                        <h4>Update</h4> 
-                </Link>
-
+                <br></br>
+                <ThemeProvider theme={theme}>
+                    <Typography variant="h5"> Stages of {processData.process.processName}</Typography>
+                </ThemeProvider>
+    
+                <br></br>
                 {!stageToggle? <div>
-                    <Button variant="outlined" 
+                    <Button 
+                        variant="outlined"
+                        // startIcon = {<AddIcon />} 
                         onClick={handleNewStageClick}>
-                        Add New Stage
+                        {/* Add New Stage */}
+                        <ThemeProvider theme={theme}>
+                            <Typography variant="h5">Add Stage</Typography>
+                        </ThemeProvider>
                     </Button>
                     
                 </div> 
@@ -236,46 +380,135 @@ const Show3 = () => {
                 <hr></hr>
                 
                 {stageToggle ? 
-                            <div>
+                            // <div>
+                            // <Container>
+                            <Box 
+                                // component="form"
+                                sx={{
+                                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                                }}>    
                                 
+                                <ThemeProvider theme={theme}>      
+                                    <Typography variant="h5">Adding New Stage</Typography>
+                                    <Typography variant="h5">
+                                        Stage Order - {processData.stages.length+1}
+                                    </Typography>
+                                </ThemeProvider>
+
                                 <Form onSubmit={handleStageSubmit}>
+                                <Stack direction="row" spacing={2}> 
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Stage Name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleInputChange}
+                                />
 
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Organization Unit"
+                                    name="orgUnit"
+                                    value={formData.orgUnit}
+                                    onChange={handleInputChange}
+                                />
+                                </Stack>
+
+                                <Stack direction="row" spacing={2}> 
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Stage owner"
+                                    name="stageOwner"
+                                    value={formData.stageOwner}
+                                    onChange={handleInputChange}
+                                />
+
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Contact Details"
+                                    name="contactDetails"
+                                    value={formData.contactDetails}
+                                    onChange={handleInputChange}
+                                />
+                                </Stack> 
+                                <hr></hr>       
                                     
-                                    <label htmlFor="name">Name:</label>
-                                    <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} />
+                                <ThemeProvider theme={theme}>      
+                                    <Typography variant="h5">
+                                        Step order - {processData.stages.length+1.1}
+                                    </Typography>
+                                </ThemeProvider>
+                                
+                                <Stack direction="row" spacing={2}>    
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Step owner"
+                                    name="stepOwner"
+                                    value={formData.stepOwner}
+                                    onChange={handleInputChange}
+                                /> 
 
-                                    <label htmlFor="orgUnit">Org Unit:</label>
-                                    <input type="text" id="orgUnit" name="orgUnit" value={formData.orgUnit} onChange={handleInputChange} />
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Step action"
+                                    name="stepAction"
+                                    value={formData.stepAction}
+                                    onChange={handleInputChange}
+                                />
+                                </Stack>
 
-                                    <label htmlFor="stageOwner">Stage Owner:</label>
-                                    <input type="text" id="stageOwner" name="stageOwner" value={formData.stageOwner} onChange={handleInputChange} />
+                                <Stack direction="row" spacing={2}> 
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Pass to"
+                                    name="pass_to"
+                                    value={formData.pass_to}
+                                    onChange={handleInputChange}
+                                /> 
 
-                                    <label htmlFor="name">Contact Details:</label>
-                                    <input type="text" id="contactDetails" name="contactDetails" value={formData.contactDetails} onChange={handleInputChange} />
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Purpose"
+                                    name="purpose"
+                                    value={formData.purpose}
+                                    onChange={handleInputChange}
+                                /> 
+                                </Stack>
 
-                                    <h5>Step 1</h5>
+                                <Stack direction="row" spacing={2}>        
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Channel"
+                                    name="channel"
+                                    value={formData.channel}
+                                    onChange={handleInputChange}
+                                /> 
 
-                                    <label htmlFor="stepOwner">Step Owner:</label>
-                                    <input type="text" id="stepOwner" name="stepOwner" value={formData.stepOwner} onChange={handleInputChange} />
-
-                                    <label htmlFor="stepAction">Step Action:</label>
-                                    <input type="text" id="stepAction" name="stepAction" value={formData.stepAction} onChange={handleInputChange} />
-
-                                    <label htmlFor="pass_to">Passed to:</label>
-                                    <input type="text" id="pass_to" name="pass_to" value={formData.pass_to} onChange={handleInputChange} />
-
-                                    <label htmlFor="purpose">Purpose:</label>
-                                    <input type="text" id="purpose" name="purpose" value={formData.purpose} onChange={handleInputChange} />
+                                <TextField
+                                    required
+                                    id="outlined-required"
+                                    label="Tool"
+                                    name="tool"
+                                    value={formData.tool}
+                                    onChange={handleInputChange}
+                                />
+                                </Stack> 
                                     
-                                    <label htmlFor="channel">Channel:</label>
-                                    <input type="text" id="channel" name="channel" value={formData.channel} onChange={handleInputChange} />
-                                    
-                                    <label htmlFor="tool">Tool:</label>
-                                    <input type="text" id="tool" name="tool" value={formData.tool} onChange={handleInputChange} />
-                                    
-                                    <Button variant="outlined" type="submit">Submit</Button>
-                                    
-                                    <Button variant="outlined"
+                                    <br></br>
+                                    <br></br>
+                                    <Button variant="contained" type="submit">Submit</Button>
+                                    <br></br>
+                                    <br></br>
+                                    <Button variant="contained"
                                         onClick={handleNewStageClick}>
                                                 Cancel
                                     </Button>
@@ -283,11 +516,12 @@ const Show3 = () => {
                                         
                                         
                                 </Form>
-                                
-                            </div>
+                            </Box>
+                            // </Container>    
+                            // </div>
                             :
                             <></>
-            }
+                }
 
 
                 {/* STAGES */}
@@ -299,25 +533,6 @@ const Show3 = () => {
                             <div>
 
                             <Stage stage={stage} key={stage._id} /> 
-                            
-                            { !editStageToggle ? <div>
-                                {/* <button value={stage._id} onClick={handleEditStageClick}>
-                                    Edit Stage
-                                </button> */}
-                                
-                                {/* <a href={`/process/${processData.process._id}/update`}>Edit </a> */}
-                                </div>: <></>
-                            }
-                            { editStageToggle ? <div>
-                                <Form onSubmit={handleEditStageSubmit}>
-                                    <label htmlFor="name">Edit Name:</label>
-                                    <p>Current value: {stage.name}</p>
-                                    <input type="text" id="name" name="name" defaultValue={stage.name} value={editFormData.name} onChange={handleEditInputChange} />
-                                    <button type="submit">Save</button>
-
-                                </Form>
-                                 </div>
-                                 : <></>}
                             
                             </div>
                             )
@@ -342,7 +557,7 @@ const Show3 = () => {
         </Container>
 
  
-    )
+        </Container>)
 
 }
 export default Show3;

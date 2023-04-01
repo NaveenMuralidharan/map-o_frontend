@@ -4,23 +4,6 @@ import { redirect } from "react-router-dom"
 const URL="https://process-mapper.onrender.com"
 
 
-// export const createAction = async ({request}) => {
-//     // get form data
-//     const formData = await request.formData()
-//     console.log("Create action from data is "+formData)
-//     // construct request body
-//     const newProcess = {
-        
-//         orgUnit: formData.get("orgUnit"),
-//         processName: formData.get("processName"),
-//         processOwner: formData.get("processOwner")
-//     }
-    
-//     console.log("new process is "+ newProcess.orgUnit)
-//     // redirect back to index page
-//     return redirect("/")
-// }
-
 export const createAction2 = async({request}) => {
 
     console.log("DEBUG createAction2 request ",request )
@@ -191,39 +174,111 @@ export const createAction2 = async({request}) => {
     return redirect(`/process`);
     }
 
-    export const updateAction = async(process) =>{
+//     export const updateAction = async({request, params}) =>{
+        
+//         const process = await request.formData();
+//         console.log(params)
+//         console.log(process.get("processName"))
+//     //TRIAL - recreate mermaidcode inside process
+//     // const newmermaidCodeGen = (diagObj)=>{
 
-    //TRIAL - recreate mermaidcode inside process
-    // const newmermaidCodeGen = (diagObj)=>{
-
-    //     let text=""
-    //     const diagType="sequenceDiagram"
-    //     // text = text +"\n"+ diagObj.type+"\n"
-    //     text = text + "\n" + diagType + "\n"
-    //     diagObj.stages.forEach((stage) => {
-    //         text = text + "box " + stage.name+"\n"
-    //         let lastindex = stage.steps.length - 1
+//     //     let text=""
+//     //     const diagType="sequenceDiagram"
+//     //     // text = text +"\n"+ diagObj.type+"\n"
+//     //     text = text + "\n" + diagType + "\n"
+//     //     diagObj.stages.forEach((stage) => {
+//     //         text = text + "box " + stage.name+"\n"
+//     //         let lastindex = stage.steps.length - 1
     
-    //         stage.steps.forEach((step,i)=>{
-    //             text = text + "participant " + step.stepOwner+"\n"
-    //             if(lastindex == i){ 
-    //                 text = text + "end" + "\n"
-    //             }
-    //         })
+//     //         stage.steps.forEach((step,i)=>{
+//     //             text = text + "participant " + step.stepOwner+"\n"
+//     //             if(lastindex == i){ 
+//     //                 text = text + "end" + "\n"
+//     //             }
+//     //         })
             
-    //         stage.steps.forEach((step)=>{
-    //             text = text + "activate " + step.stepOwner + "\n"
-    //             text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - <br/>" +  step.action + "<br/>" + "Doc: " + step.docType+ "\n"
-    //             // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
-    //             // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
-    //             text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + "<br/> Tool: " + step.tool + "<br/>"+"\n"
+//     //         stage.steps.forEach((step)=>{
+//     //             text = text + "activate " + step.stepOwner + "\n"
+//     //             text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - <br/>" +  step.action + "<br/>" + "Doc: " + step.docType+ "\n"
+//     //             // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
+//     //             // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
+//     //             text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + "<br/> Tool: " + step.tool + "<br/>"+"\n"
                 
-    //         })
+//     //         })
             
-    //     })
-    //     // console.log(text)
-    //     return text
-    // }
+//     //     })
+//     //     // console.log(text)
+//     //     return text
+//     // }
+        
+//     //TRIAL-mermaid code gen without br's
+//     const trialmermaidCodeGen = (diagObj)=>{
+
+//             let text=""
+//             const diagType="sequenceDiagram"
+//             // text = text +"\n"+ diagObj.type+"\n"
+//             text = text + "\n" + diagType + "\n"
+//             diagObj.stages.forEach((stage) => {
+//                 text = text + "box " + stage.name+"\n"
+//                 let lastindex = stage.steps.length - 1
+        
+//                 stage.steps.forEach((step,i)=>{
+//                     text = text + "participant " + step.stepOwner+"\n"
+//                     if(lastindex === i){ 
+//                         text = text + "end" + "\n"
+//                     }
+//                 })
+                
+//                 stage.steps.forEach((step)=>{
+//                     text = text + "activate " + step.stepOwner + "\n"
+//                     text = text + "Note over " + step.stepOwner +": " + step.stepOwner+ " - " +  step.action + "" + "Doc: " + step.docType+ "\n"
+//                     // text = text + "Note over " + step.stakeholder +": Channel: " + "" +step.channel + "<br/> Tool: " + step.tool + "<br/>" + "\n"
+//                     // text = text + step.stakeholder + "-->" + step.pass_to + ":" + step.desc + "\n"
+//                     text = text + step.stepOwner + "->>" + step.pass_to + ":" + "Channel: "+ "" + step.channel + " Tool: " + step.tool + ""+"\n"
+                    
+//                 })
+                
+//             })
+//             // console.log(text)
+//             return text
+//         }
+        
+//      //GENERATE MERMAID CODE
+//     // const updatedMermaidCode = newmermaidCodeGen(process)
+//     const updatedMermaidCode = trialmermaidCodeGen(process)
+    
+//     process.mermaidCode = updatedMermaidCode;
+
+
+//     console.log("TEST - updateAction req is ", process)
+       
+//     //Send PUT request to update process
+//     const response = await fetch(URL + "/process/"+ process.get("_id"), {
+//         method: "PUT",
+//         headers: {
+//             "Content-Type": "application/json",
+//         },
+//         // body: newProcess
+//         body: JSON.stringify(process),
+//     })
+//     console.log(response)
+//     // return redirect("/")
+//     //TRIAL - retreive updated process obj and send to show page to update state     
+//     const updatedProcess = await response.json();
+//     console.log("updated process in Updateaction is ",updatedProcess)
+//     // return updatedProcess
+//     if(updatedProcess){
+//         console.log("yes")
+//         return redirect("/")
+//     }
+    
+//     // redirect(`/process/${process._id}`)
+//     //Redirect to show page
+//     // return redirect("/process/"+process._id);
+
+// }
+
+export const updateAction = async(process) =>{
 
     //TRIAL-mermaid code gen without br's
     const trialmermaidCodeGen = (diagObj)=>{
@@ -258,10 +313,9 @@ export const createAction2 = async({request}) => {
         }
 
      //GENERATE MERMAID CODE
-    // const updatedMermaidCode = newmermaidCodeGen(process)
+    
     const updatedMermaidCode = trialmermaidCodeGen(process)
     process.mermaidCode = updatedMermaidCode;
-
 
     console.log("TEST - updateAction req is ", process)
 
@@ -277,11 +331,40 @@ export const createAction2 = async({request}) => {
     //TRIAL - retreive updated process obj and send to show page to update state     
     const updatedProcess = await response.json();
     console.log("updated process in Updateaction is ",updatedProcess)
-    // return updatedProcess
-    return redirect(`/process/${process._id}`)
+    return updatedProcess
+    // return redirect(`/process/${process._id}`)
     //Redirect to show page
     // return redirect("/process/"+process._id);
 
+}
+
+
+export const updateAction2 = async({request, params})=>{
+    console.log("testing updateaction2")
+    console.log(params.id)
+    const formData = await request.formData()
+    
+    const [...dataArr] = formData
+    console.log(dataArr)
+
+
+    const process = {
+        id:             params.id,
+        processName:    formData.get("processName"),
+        orgUnit:        formData.get("orgUnit"),
+        processOwner:   formData.get("processOwner"), 
+        }
+
+    //loop through array of data and create object
+    const dataObject = {}
+
+    //loop inside each mini array
+    //eck if first string      
+        
+
+
+    console.log({process})
+    return null
 }
 
 export const deleteAction = async({params})=>{
