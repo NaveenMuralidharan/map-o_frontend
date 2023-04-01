@@ -20,12 +20,12 @@ import RouteIcon from '@mui/icons-material/Route';
   const theme = createTheme();
 
   theme.typography.h5 = {
-    fontSize: '0.8rem',
+    fontSize: '1.8rem',
     '@media (min-width:600px)': {
-      fontSize: '1.0rem',
+      fontSize: '2.0rem',
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: '1.5rem',
+      fontSize: '2.3rem',
     },
   };
 
@@ -111,6 +111,8 @@ const Edit = (params)=> {
                                     name="orgUnit"
                                     value={formData.orgUnit}
                                     onChange={handleChange}
+                                    inputProps={{style: {fontSize: 16}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 12}}} // font size of input label
                     />
 
                     <TextField
