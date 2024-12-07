@@ -22,7 +22,7 @@
 
 Map-O helps organizations to effectively map their processes, visualize workflows, and gain insights into their operations. The frontend part of the project provides an interactive user interface for users to create and manage process maps.
 
-This repository contains the frontend application built with React, connecting to a backend (presumably in a separate repository) where process maps are stored and retrieved.
+This repository contains the frontend application built with React, connecting to a backend (https://github.com/NaveenMuralidharan/Map-O_backend) where process maps are stored and retrieved.
 
 ---
 
@@ -33,15 +33,13 @@ This repository contains the frontend application built with React, connecting t
   - JavaScript (ES6+)
   - Mermaid JS (for process mapping visualization)
   - React Router DOM (for navigation)
+  - Bootstrap
   
 - **Backend** (For reference, assuming it connects to a Node/Express API):  
   - MongoDB
   - Express
   - Node.js
 
-- **Others**:
-  - Axios (for API requests)
-  - Styled-components (for styling)
 
 ---
 
@@ -141,7 +139,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 For any questions or inquiries, please contact:
 
 - **Author**: Naveen Muralidharan
-- **Email**: naveenspec@gmail.com *(replace with actual email)*
+- **Email**: naveenspec@gmail.com 
 
 ## Future Improvements
 
