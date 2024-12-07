@@ -78,43 +78,79 @@ npm start
 ```
 Your app will be running at http://localhost:3000.
 
-##Usage
+## Usage
 
-Frontend Routes:
-/process: Homepage to view or create a new process map.
-/process/:id: View the details of a specific process map.
-/create: A form for creating new process maps.
-/update/:id: Update an existing process map.
-/delete/:id: Delete a process map.
+### Frontend Routes:
 
-#### Component Architecture:
-
-<img src="https://i.imgur.com/tHkYmZ8.png">
+- **/process**: Homepage to view or create a new process map.
+- **/process/:id**: View the details of a specific process map.
+- **/create**: A form for creating new process maps.
+- **/update/:id**: Update an existing process map.
+- **/delete/:id**: Delete a process map.
 
 #### Webdesign Mockup:
 
-#### Index Page:
-
+#### Home Page
+####A dashboard to view and manage processes.
 <img src="https://i.imgur.com/Bkv3eEQ.png">
 
-#### Create Page
-
+#### Create Process Map
+#### A form to input details about a new process.
 <img src="https://i.imgur.com/BG7Zyow.png">
 
-#### Show Page
-
+#### Process Map Details
+A visual representation of the process flow.
 <img src="https://i.imgur.com/T7EwcK0.png">
 
-#### Edit Page
+#### Edit Process Map
+####Modify details of an existing process.
 
 <img src="https://i.imgur.com/2RIx47t.png">
 
-##API Routes
+## API Routes
 
-Backend Routes:
-Endpoint	Method	Description
-/process	GET	Brings user to the homepage for creating or selecting a process map.
-/process/:id	GET	Fetches details of a specific process map based on the ID.
-/process	POST	Creates a new process map.
-/process/:id	PUT	Updates an existing process map by ID.
-/process/:id	DELETE	Deletes a process map by ID.
+### Backend Routes:
+
+| Endpoint        | Method | Description                                                          |
+| --------------- | ------ | -------------------------------------------------------------------- |
+| `/process`      | GET    | Brings user to the homepage for creating or selecting a process map. |
+| `/process/:id`  | GET    | Fetches details of a specific process map based on the ID.           |
+| `/process`      | POST   | Creates a new process map.                                           |
+| `/process/:id`  | PUT    | Updates an existing process map by ID.                               |
+| `/process/:id`  | DELETE | Deletes a process map by ID.
+
+#### Component Architecture:
+#### Below is a simplified architecture diagram for the component structure of the frontend application:
+<img src="https://i.imgur.com/tHkYmZ8.png">
+
+## Contributing
+
+We welcome contributions to improve Map-O. If you'd like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (git checkout -b feature-name).
+3. Make your changes and commit them (git commit -am 'Add new feature').
+4. Push to the branch (git push origin feature-name).
+5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+For any questions or inquiries, please contact:
+
+- **Author**: Naveen Muralidharan
+- **Email**: naveen@example.com *(replace with actual email)*
+
+## Future Improvements
+
+- **Debug Big SVG Chart Generation**: Improve performance when handling larger process maps.
+- **Expand Model**: Add more customizable steps to the process model.
+- **Clickable Links**: Add functionality for interactive clickable links within the process maps.
+- **Add More User Features**: Implement user authentication, sharing options, and export functionality.
+
+
+
+
