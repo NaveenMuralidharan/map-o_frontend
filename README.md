@@ -142,7 +142,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 For any questions or inquiries, please contact:
 
 - **Author**: Naveen Muralidharan
-- **Email**: naveen@example.com *(replace with actual email)*
+- **Email**: naveenspec@gmail.com *(replace with actual email)*
 
 ## Future Improvements
 
