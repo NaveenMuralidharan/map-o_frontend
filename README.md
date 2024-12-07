@@ -77,3 +77,44 @@ Start the local development server by running:
 npm start
 ```
 Your app will be running at http://localhost:3000.
+
+##Usage
+
+Frontend Routes:
+/process: Homepage to view or create a new process map.
+/process/:id: View the details of a specific process map.
+/create: A form for creating new process maps.
+/update/:id: Update an existing process map.
+/delete/:id: Delete a process map.
+
+#### Component Architecture:
+
+<img src="https://i.imgur.com/tHkYmZ8.png">
+
+#### Webdesign Mockup:
+
+#### Index Page:
+
+<img src="https://i.imgur.com/Bkv3eEQ.png">
+
+#### Create Page
+
+<img src="https://i.imgur.com/BG7Zyow.png">
+
+#### Show Page
+
+<img src="https://i.imgur.com/T7EwcK0.png">
+
+#### Edit Page
+
+<img src="https://i.imgur.com/2RIx47t.png">
+
+##API Routes
+
+Backend Routes:
+Endpoint	Method	Description
+/process	GET	Brings user to the homepage for creating or selecting a process map.
+/process/:id	GET	Fetches details of a specific process map based on the ID.
+/process	POST	Creates a new process map.
+/process/:id	PUT	Updates an existing process map by ID.
+/process/:id	DELETE	Deletes a process map by ID.
